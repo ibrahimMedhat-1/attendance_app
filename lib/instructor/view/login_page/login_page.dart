@@ -1,9 +1,9 @@
+import 'package:attendance_app/instructor/view/login_page/animated_login_widgets/button_animated_login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../view_model/login_cubit/login_cubit.dart';
 import '../home_page/home_page.dart';
-import '../signup_page/animated_signup_widgets/button_animated_login.dart';
 import '../signup_page/signup_page.dart';
 import 'animated_login_widgets/logo_opacity_animated_login.dart';
 
@@ -88,7 +88,7 @@ class LogIn extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Spacer(),
-                          AnimatedSignUpButton(
+                          AnimatedLogInButton(
                             validate: () {
                               if (cubit.formKey.currentState!.validate()) {
                                 cubit.login(true);

@@ -7,7 +7,7 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
 
   static LoginCubit get(context) => BlocProvider.of(context);
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> loginFormKey = GlobalKey<FormState>(debugLabel: 'loginFormKey');
   bool loggedIn = false;
   bool obscure = true;
   IconData suffixIcon = Icons.visibility_off;

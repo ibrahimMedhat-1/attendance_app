@@ -116,11 +116,11 @@ class _AnimatedSignUpButtonState extends State<AnimatedSignUpButton> with Ticker
                   builder: (BuildContext context, Widget? child) => child!,
                   child: SlideTransition(
                     position: signUpCubitCubit.loggedIn ? animation : animationError,
-                    child: const Align(
+                    child: Align(
                       alignment: Alignment.centerLeft,
                       child: Icon(
                         Icons.arrow_forward,
-                        size: 20,
+                        size: MediaQuery.of(context).size.width * 0.07,
                       ),
                     ),
                   ),
@@ -131,6 +131,7 @@ class _AnimatedSignUpButtonState extends State<AnimatedSignUpButton> with Ticker
                 opacity: animationOpacity.value,
                 child: const Text(
                   'SignUp',
+                  style: TextStyle(color: Colors.black),
                 ),
               )
             ],

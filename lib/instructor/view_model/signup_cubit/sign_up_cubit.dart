@@ -14,7 +14,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   IconData suffixIcon = Icons.visibility_off;
   bool loggedIn = false;
   bool obscure = true;
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> signupFormKey = GlobalKey<FormState>(debugLabel: 'signupFormKey');
   List<DropdownMenuItem<String>> courses = const [
     DropdownMenuItem(
       value: 'Flutter Beginner',

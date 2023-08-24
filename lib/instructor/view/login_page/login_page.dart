@@ -1,9 +1,9 @@
+import 'package:attendance_app/instructor/layout/layout.dart';
 import 'package:attendance_app/instructor/view/login_page/animated_login_widgets/button_animated_login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../view_model/login_cubit/login_cubit.dart';
-import '../home_page/home_page.dart';
 import '../signup_page/signup_page.dart';
 import 'animated_login_widgets/logo_opacity_animated_login.dart';
 
@@ -19,17 +19,17 @@ class LogIn extends StatelessWidget {
         return Scaffold(
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Form(
-              key: cubit.formKey,
-              child: SingleChildScrollView(
-                physics: const NeverScrollableScrollPhysics(),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    /// logo - text form fields
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * cubit.height,
-                      width: double.infinity,
+            child: SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  /// logo - text form fields
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * cubit.height,
+                    width: double.infinity,
+                    child: Form(
+                      key: cubit.loginFormKey,
                       child: Column(
                         children: [
                           const Expanded(child: LogoOpacity()),
@@ -79,50 +79,55 @@ class LogIn extends StatelessWidget {
                         ],
                       ),
                     ),
+                  ),
 
-                    /// login - signup
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      width: double.infinity,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Spacer(),
-                          AnimatedLogInButton(
-                            validate: () {
-                              if (cubit.formKey.currentState!.validate()) {
-                                cubit.login(true);
-                              } else {
-                                cubit.login(false);
-                              }
-                            },
-                            onTap: () {
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (builder) => const HomePage()));
-                            },
-                          ),
-                          const Spacer(),
-                          Row(
-                            children: [
-                              const Text(
-                                'Don\'t have an account? ',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
+                  /// login - signup
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.3,
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Spacer(),
+                        AnimatedLogInButton(
+                          validate: () {
+                            if (cubit.loginFormKey.currentState!.validate()) {
+                              cubit.login(true);
+                            } else {
+                              cubit.login(false);
+                            }
+                          },
+                          onTap: () {
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (builder) => const LayOut()));
+                          },
+                        ),
+                        const Spacer(),
+                        Row(
+                          children: [
+                            const Text(
+                              'Don\'t have an account? ',
+                              style: TextStyle(
+                                color: Colors.white,
                               ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (builder) => const SignUp()));
-                                },
-                                child: const Text('SignUp'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (builder) => const SignUp()));
+                              },
+                              child: Text(
+                                'SignUp',
+                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                      color: Colors.teal,
+                                    ),
                               ),
-                            ],
-                          ),
-                          const Spacer(),
-                        ],
-                      ),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

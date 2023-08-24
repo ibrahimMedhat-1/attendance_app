@@ -21,13 +21,13 @@ class SignUp extends StatelessWidget {
               height: MediaQuery.of(context).size.height,
               padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.04),
               child: Form(
-                key: cubit.formKey,
+                key: cubit.signupFormKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     const TextSignUpAnimation(),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.5,
+                      height: MediaQuery.of(context).size.height * 0.6,
                       width: double.infinity,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -170,16 +170,36 @@ class SignUp extends StatelessWidget {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.1,
                       width: double.infinity,
-                      child: AnimatedSignUpButton(
-                          validate: () {
-                            cubit.validateMenus();
-                            if (cubit.formKey.currentState!.validate() && cubit.coursesMenuIsChosen && cubit.dateMenuIsChosen) {
-                              cubit.login(true);
-                            } else {
-                              cubit.login(false);
-                            }
-                          },
-                          onTap: () {}),
+                      child: AnimatedSignUpButton(validate: () {
+                        cubit.validateMenus();
+                        if (cubit.signupFormKey.currentState!.validate() && cubit.coursesMenuIsChosen && cubit.dateMenuIsChosen) {
+                          cubit.login(true);
+                        } else {
+                          cubit.login(false);
+                        }
+                      }, onTap: () {
+                        Navigator.pop(context);
+                      }),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'Already have an account ?',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text(
+                              'LogIn',
+                              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    color: Colors.teal,
+                                  ),
+                            ))
+                      ],
                     )
                   ],
                 ),

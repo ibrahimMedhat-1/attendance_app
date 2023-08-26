@@ -1,3 +1,4 @@
+import 'package:attendance_app/instructor/view/edit_assignments-quizzes_page/edit_assignment-quizzes_page.dart';
 import 'package:attendance_app/instructor/view/home_page/home_page.dart';
 import 'package:attendance_app/instructor/view/qr_code_scanner/qr_code_scanner.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class LayoutCubit extends Cubit<LayoutState> {
   int index = 0;
   List<Widget> screens = const [
     HomePage(),
+    EditPage(),
     QRCodeScanner(),
   ];
   void changeNavBArIndex(index) {

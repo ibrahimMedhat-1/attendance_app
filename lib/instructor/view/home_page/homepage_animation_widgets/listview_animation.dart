@@ -16,8 +16,6 @@ class AnimationList extends StatefulWidget {
 }
 
 class _AnimationListState extends State<AnimationList> with SingleTickerProviderStateMixin {
-  // late AnimationController animationController;
-  // late Animation animation;
   ScrollController scrollController = ScrollController();
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
   List<Widget> studentTileList = [];
@@ -74,7 +72,6 @@ class _AnimationListState extends State<AnimationList> with SingleTickerProvider
 
   void addStudent() async {
     for (var student in widget.studentsModel) {
-      // animationController.forward();
       await Future.delayed(const Duration(milliseconds: 200)).then((value) {});
       studentTileList.add(studentTile(student));
       listKey.currentState!.insertItem(studentTileList.length - 1);
@@ -87,11 +84,6 @@ class _AnimationListState extends State<AnimationList> with SingleTickerProvider
     WidgetsBinding.instance.addPostFrameCallback((_) {
       addStudent();
     });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override

@@ -1,4 +1,8 @@
 import 'package:attendance_app/instructor/model/student_model.dart';
+import 'package:attendance_app/instructor/view/assignment_page/assignment_page.dart';
+import 'package:attendance_app/instructor/view/attendance_page/attendance_page.dart';
+import 'package:attendance_app/instructor/view/grades_page/grades_page.dart';
+import 'package:attendance_app/instructor/view/quiz_page/quiz_page.dart';
 import 'package:attendance_app/instructor/view/student_details_page/student_details_widgets/default_button.dart';
 import 'package:attendance_app/instructor/view_model/student_details_cubit/student_details_cubit.dart';
 import 'package:flutter/material.dart';
@@ -101,10 +105,26 @@ class StudentDetails extends StatelessWidget {
                               ],
                             ),
                             SizedBox(height: MediaQuery.of(context).size.width * 0.05),
-                            const DefaultButton(text: 'Attendance'),
-                            const DefaultButton(text: 'Assignments'),
-                            const DefaultButton(text: 'Quizzes'),
-                            const DefaultButton(text: 'Grades'),
+                            DefaultButton(
+                                onTap: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (builder) => const AttendancePage()));
+                                },
+                                text: 'Attendance'),
+                            DefaultButton(
+                                onTap: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (builder) => const AssignmentPage()));
+                                },
+                                text: 'Assignments'),
+                            DefaultButton(
+                                onTap: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (builder) => const QuizPage()));
+                                },
+                                text: 'Quizzes'),
+                            DefaultButton(
+                                onTap: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (builder) => GradesPage(studentName: student.name!)));
+                                },
+                                text: 'Grades'),
                           ],
                         ),
                       ),

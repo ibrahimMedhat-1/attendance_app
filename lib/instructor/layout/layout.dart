@@ -26,6 +26,7 @@ class LayOut extends StatelessWidget {
               Icon(
                 Icons.home,
               ),
+              Icon(Icons.assignment),
               Icon(
                 Icons.qr_code,
               ),

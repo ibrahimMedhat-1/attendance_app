@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 class DefaultButton extends StatefulWidget {
   final String text;
-
+  final Function() onTap;
   const DefaultButton({
     super.key,
     required this.text,
+    required this.onTap,
   });
 
   @override
@@ -17,7 +18,9 @@ class _DefaultButtonState extends State<DefaultButton> {
   Widget build(BuildContext context) {
     return Expanded(
       child: MaterialButton(
-        onPressed: () {},
+        onPressed: () {
+          widget.onTap();
+        },
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.1),
           child: Row(

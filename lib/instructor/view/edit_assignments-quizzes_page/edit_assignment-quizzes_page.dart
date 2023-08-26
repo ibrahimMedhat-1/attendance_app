@@ -16,17 +16,14 @@ class EditPage extends StatelessWidget {
           EditPageCubit cubit = EditPageCubit.get(context);
           return Scaffold(
             body: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    const SelectAnimation(),
-                    const SizedBox(height: 20),
-                    Expanded(
-                      child: cubit.editPage[cubit.editPageIndex],
-                    ),
-                  ],
-                ),
+              child: Column(
+                children: [
+                  const Padding(padding: EdgeInsets.all(20), child: SelectAnimation()),
+                  const SizedBox(height: 20),
+                  Expanded(
+                    child: cubit.editPage[cubit.editPageIndex],
+                  ),
+                ],
               ),
             ),
           );

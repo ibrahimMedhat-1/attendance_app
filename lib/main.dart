@@ -1,4 +1,4 @@
-import 'package:attendance_app/instructor/layout/layout.dart';
+import 'package:attendance_app/instructor/view/login_page/login_page.dart';
 import 'package:attendance_app/instructor/view_model/layout_cubit/layout_cubit.dart';
 import 'package:attendance_app/instructor/view_model/login_cubit/login_cubit.dart';
 import 'package:attendance_app/instructor/view_model/signup_cubit/sign_up_cubit.dart';
@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
                 useMaterial3: true,
               ),
               themeMode: ThemeMode.dark,
-              home: const LayOut(),
+              home: const LogIn(),
             ),
           );
         },

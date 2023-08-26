@@ -95,7 +95,7 @@ class StudentDetails extends StatelessWidget {
                                     )),
                                 IconButton(
                                     onPressed: () {
-                                      cubit.launch(url: 'https://wa.me/2${student.phoneNo}?');
+                                      cubit.launch(url: 'https://wa.me/2${student.phoneNo}?text=');
                                     },
                                     icon: ImageIcon(
                                       const AssetImage('assets/whatsapp.png'),

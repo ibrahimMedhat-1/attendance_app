@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "328485606986",
+    "project_id": "alphacodecourses",
+    "storage_bucket": "alphacodecourses.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:328485606986:android:d81e659a52ca7e278178b3",
+        "android_client_info": {
+          "package_name": "com.attendance.ibrahim.attendance_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "328485606986-0osqt3g8m8rqifaki6kmmqi41q2ji6c3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCouslZRJKKHeMkViIk7Mg-1HNeLQfv8Cg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "328485606986-0osqt3g8m8rqifaki6kmmqi41q2ji6c3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

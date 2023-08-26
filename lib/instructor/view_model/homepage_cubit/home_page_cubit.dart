@@ -32,8 +32,8 @@ class HomePageCubit extends Cubit<HomePageState> {
         email: 'Ibrahimmedhat112@gmail.com',
         phoneNo: '01064172976',
         profilePicture: 'assets/profilePic.jpeg',
-        attendance: 3,
-        absence: 3,
+        attendance: 0,
+        absence: 24,
         totalGrades: 48),
     StudentModel(
         name: 'mahmoud',

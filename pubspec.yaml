@@ -29,6 +29,9 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   device_preview:
+  firebase_core:
+  firebase_auth:
+  cloud_firestore:
   url_launcher:
   qr_code_scanner:
   curved_navigation_bar:

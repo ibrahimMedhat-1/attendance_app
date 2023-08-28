@@ -31,6 +31,7 @@ class QRCodeScanner extends StatelessWidget {
                     cubit.qrValue(qrViewController);
                   },
                 ),
+                Text(cubit.barCodeIs.toString()),
               ],
             ),
           );

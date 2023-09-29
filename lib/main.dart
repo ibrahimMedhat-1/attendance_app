@@ -1,10 +1,11 @@
-import 'package:attendance_app/instructor/view/login_page/login_page.dart';
 import 'package:attendance_app/instructor/view_model/layout_cubit/layout_cubit.dart';
-import 'package:attendance_app/instructor/view_model/login_cubit/login_cubit.dart';
-import 'package:attendance_app/instructor/view_model/signup_cubit/sign_up_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'instructor/view/features/authentication/login_page/login_page.dart';
+import 'instructor/view/features/authentication/login_page/manager/login_cubit/login_cubit.dart';
+import 'instructor/view/features/authentication/signup_page/manager/signup_cubit/sign_up_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

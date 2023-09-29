@@ -1,6 +1,7 @@
-import 'package:attendance_app/instructor/model/student_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../model/student_model.dart';
 
 part 'home_page_state.dart';
 

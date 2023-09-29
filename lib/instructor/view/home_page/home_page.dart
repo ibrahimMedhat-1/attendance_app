@@ -1,4 +1,4 @@
-import 'package:attendance_app/instructor/view/home_page/homepage_animation_widgets/listview_animation.dart';
+import 'package:attendance_app/instructor/view/home_page/widgets/listview_animation.dart';
 import 'package:attendance_app/instructor/view_model/homepage_cubit/home_page_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,7 +47,9 @@ class HomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       DropdownButton<String>(
-                        itemHeight: MediaQuery.of(context).size.width * 0.1 < 48 ? kMinInteractiveDimension : MediaQuery.of(context).size.width * 0.1,
+                        itemHeight: MediaQuery.of(context).size.width * 0.1 < 48
+                            ? kMinInteractiveDimension
+                            : MediaQuery.of(context).size.width * 0.1,
                         value: cubit.coursesDropDownMenuValue,
                         items: cubit.courses,
                         dropdownColor: Colors.black,

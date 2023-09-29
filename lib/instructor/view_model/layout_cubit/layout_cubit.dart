@@ -1,8 +1,9 @@
-import 'package:attendance_app/instructor/view/edit_assignments-quizzes_page/edit_assignment-quizzes_page.dart';
 import 'package:attendance_app/instructor/view/home_page/home_page.dart';
-import 'package:attendance_app/instructor/view/qr_code_scanner/qr_code_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../view/features/edit_assignments-quizzes_page/edit_assignment-quizzes_page.dart';
+import '../../view/features/qr_code_scanner/qr_code_scanner.dart';
 
 part 'layout_state.dart';
 

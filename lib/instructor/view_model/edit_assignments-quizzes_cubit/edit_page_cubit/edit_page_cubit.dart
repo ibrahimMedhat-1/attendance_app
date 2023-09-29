@@ -1,7 +1,8 @@
-import 'package:attendance_app/instructor/view/edit_assignments-quizzes_page/edit_assignments/edit_assignments.dart';
-import 'package:attendance_app/instructor/view/edit_assignments-quizzes_page/edit_quizzes/edit_quizzes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../view/features/edit_assignments-quizzes_page/edit_assignments/edit_assignments.dart';
+import '../../../view/features/edit_assignments-quizzes_page/edit_quizzes/edit_quizzes.dart';
 
 part 'edit_page_state.dart';
 

@@ -71,7 +71,7 @@ class _AnimatedSignUpButtonState extends State<AnimatedSignUpButton> with Ticker
           onTap: () {
             animationRepeat = 0;
             widget.validate();
-            if (signUpCubitCubit.loggedIn == true) {
+            if (signUpCubitCubit.validated == true) {
               setState(() {
                 animationController.forward();
               });
@@ -80,7 +80,7 @@ class _AnimatedSignUpButtonState extends State<AnimatedSignUpButton> with Ticker
                   widget.onTap();
                 }
               });
-            } else if (signUpCubitCubit.loggedIn == false) {
+            } else if (signUpCubitCubit.validated == false) {
               setState(() {
                 animationControllerError.forward();
                 animationControllerError.addStatusListener((status) {
@@ -114,10 +114,10 @@ class _AnimatedSignUpButtonState extends State<AnimatedSignUpButton> with Ticker
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: AnimatedBuilder(
-                  animation: signUpCubitCubit.loggedIn ? animationController : animationControllerError,
+                  animation: signUpCubitCubit.validated ? animationController : animationControllerError,
                   builder: (BuildContext context, Widget? child) => child!,
                   child: SlideTransition(
-                    position: signUpCubitCubit.loggedIn ? animation : animationError,
+                    position: signUpCubitCubit.validated ? animation : animationError,
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Icon(

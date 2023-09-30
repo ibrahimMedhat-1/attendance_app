@@ -10,16 +10,16 @@ class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit() : super(SignUpInitial());
 
   static SignUpCubit get(context) => BlocProvider.of(context);
-  TextEditingController nameController =TextEditingController();
-  TextEditingController emailController =TextEditingController();
-  TextEditingController passwordController =TextEditingController();
-  TextEditingController phoneNumberController =TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
   String? coursesDropDownMenuValue;
   String? dateDropDownMenuValue;
   bool coursesMenuIsChosen = true;
   bool dateMenuIsChosen = true;
   IconData suffixIcon = Icons.visibility_off;
-  bool loggedIn = false;
+  bool validated = false;
   bool obscure = true;
   GlobalKey<FormState> signupFormKey = GlobalKey<FormState>(debugLabel: 'signupFormKey');
   List<DropdownMenuItem<String>> courses = const [
@@ -87,7 +87,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   }
 
   void login(value) {
-    loggedIn = value;
+    validated = value;
     emit(SignUpError());
   }
 
@@ -101,17 +101,18 @@ class SignUpCubit extends Cubit<SignUpState> {
       emit(ChangeObscure());
     }
   }
-  void signup(
-      {
-        required StudentModel studentModel,
-        required String password,
-      }
-      ){
-    FirebaseAuth.instance.createUserWithEmailAndPassword(email: studentModel.email!, password: password).
-    then((value) {
-      FirebaseFirestore.instance.collection(studentModel.courseName!).doc(studentModel.courseDate)
-          .collection("students").doc(value.user!.uid).set(studentModel.toMap(id: value.user!.uid));
+
+  void signup({
+    required StudentModel studentModel,
+    required String password,
+  }) {
+    FirebaseAuth.instance.createUserWithEmailAndPassword(email: studentModel.email!, password: password).then((value) {
+      FirebaseFirestore.instance
+          .collection(studentModel.courseName!)
+          .doc(studentModel.courseDate)
+          .collection("students")
+          .doc(value.user!.uid)
+          .set(studentModel.toMap(id: value.user!.uid));
     });
   }
 }
-

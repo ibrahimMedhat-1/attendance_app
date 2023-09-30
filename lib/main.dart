@@ -1,17 +1,19 @@
 import 'package:attendance_app/instructor/view_model/layout_cubit/layout_cubit.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'firebase_options.dart';
 import 'instructor/view/features/authentication/login_page/login_page.dart';
 import 'instructor/view/features/authentication/login_page/manager/login_cubit/login_cubit.dart';
 import 'instructor/view/features/authentication/signup_page/manager/signup_cubit/sign_up_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);

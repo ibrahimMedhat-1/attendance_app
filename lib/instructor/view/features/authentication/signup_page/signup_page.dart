@@ -1,5 +1,6 @@
 import 'package:attendance_app/instructor/view/features/authentication/signup_page/widgets/animated_signup_widgets/button_animated_signup.dart';
 import 'package:attendance_app/instructor/view/features/authentication/signup_page/widgets/animated_signup_widgets/text_signup_animation.dart';
+import 'package:attendance_app/model/student_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,6 +34,7 @@ class SignUp extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           TextFormField(
+                            controller: cubit.nameController,
                             keyboardType: TextInputType.name,
                             style: const TextStyle(
                               color: Colors.white,
@@ -50,6 +52,7 @@ class SignUp extends StatelessWidget {
                             },
                           ),
                           TextFormField(
+                            controller: cubit.emailController,
                             keyboardType: TextInputType.emailAddress,
                             style: const TextStyle(
                               color: Colors.white,
@@ -67,6 +70,7 @@ class SignUp extends StatelessWidget {
                             },
                           ),
                           TextFormField(
+                            controller: cubit.passwordController,
                             keyboardType: TextInputType.visiblePassword,
                             style: const TextStyle(
                               color: Colors.white,
@@ -90,6 +94,7 @@ class SignUp extends StatelessWidget {
                             },
                           ),
                           TextFormField(
+                            controller: cubit.phoneNumberController,
                             keyboardType: TextInputType.phone,
                             style: const TextStyle(
                               color: Colors.white,
@@ -115,8 +120,9 @@ class SignUp extends StatelessWidget {
                               decoration: BoxDecoration(
                                 border: Border(
                                   bottom: BorderSide(
-                                    color:
-                                        cubit.coursesMenuIsChosen ? const Color(0xFFBDBDBD) : const Color(0xFFFF0000),
+                                    color: cubit.coursesMenuIsChosen
+                                        ? const Color(0xFFBDBDBD)
+                                        : const Color(0xFFFF0000),
                                     width: 0.0,
                                   ),
                                 ),
@@ -124,7 +130,9 @@ class SignUp extends StatelessWidget {
                             ),
                             icon: Icon(
                               Icons.arrow_drop_down,
-                              color: cubit.coursesMenuIsChosen ? Colors.grey.shade400 : const Color(0xFFFF0000),
+                              color: cubit.coursesMenuIsChosen
+                                  ? Colors.grey.shade400
+                                  : const Color(0xFFFF0000),
                             ),
                             style: const TextStyle(color: Colors.white),
                             onChanged: (value) {
@@ -145,7 +153,9 @@ class SignUp extends StatelessWidget {
                               decoration: BoxDecoration(
                                 border: Border(
                                   bottom: BorderSide(
-                                    color: cubit.dateMenuIsChosen ? const Color(0xFFBDBDBD) : const Color(0xFFFF0000),
+                                    color: cubit.dateMenuIsChosen
+                                        ? const Color(0xFFBDBDBD)
+                                        : const Color(0xFFFF0000),
                                     width: 0.0,
                                   ),
                                 ),
@@ -153,7 +163,9 @@ class SignUp extends StatelessWidget {
                             ),
                             icon: Icon(
                               Icons.arrow_drop_down,
-                              color: cubit.dateMenuIsChosen ? Colors.grey.shade400 : const Color(0xFFFF0000),
+                              color: cubit.dateMenuIsChosen
+                                  ? Colors.grey.shade400
+                                  : const Color(0xFFFF0000),
                             ),
                             style: const TextStyle(color: Colors.white),
                             onChanged: (value) {
@@ -181,14 +193,26 @@ class SignUp extends StatelessWidget {
                           cubit.login(false);
                         }
                       }, onTap: () {
+                        cubit.signup(
+                            studentModel: StudentModel(
+                                name: cubit.nameController.text,
+                                email: cubit.emailController.text,
+                                phoneNo: cubit.phoneNumberController.text,
+                                profilePicture: '',
+                                attendance: 0,
+                                absence: 24,
+                                totalGrades: 0,
+                                courseName: cubit.coursesDropDownMenuValue,
+                                courseDate: cubit.dateDropDownMenuValue),
+                            password: cubit.passwordController.text);
                         Navigator.pop(context);
                       }),
                     ),
                     Row(
                       children: [
-                        Text(
+                        const Text(
                           'Already have an account ?',
-                          style: TextStyle(
+                          style:  TextStyle(
                             color: Colors.white,
                           ),
                         ),
@@ -198,7 +222,10 @@ class SignUp extends StatelessWidget {
                             },
                             child: Text(
                               'LogIn',
-                              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
                                     color: Colors.teal,
                                   ),
                             ))

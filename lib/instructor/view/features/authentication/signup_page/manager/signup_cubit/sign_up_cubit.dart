@@ -1,3 +1,6 @@
+import 'package:attendance_app/model/student_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,6 +10,10 @@ class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit() : super(SignUpInitial());
 
   static SignUpCubit get(context) => BlocProvider.of(context);
+  TextEditingController nameController =TextEditingController();
+  TextEditingController emailController =TextEditingController();
+  TextEditingController passwordController =TextEditingController();
+  TextEditingController phoneNumberController =TextEditingController();
   String? coursesDropDownMenuValue;
   String? dateDropDownMenuValue;
   bool coursesMenuIsChosen = true;
@@ -94,4 +101,17 @@ class SignUpCubit extends Cubit<SignUpState> {
       emit(ChangeObscure());
     }
   }
+  void signup(
+      {
+        required StudentModel studentModel,
+        required String password,
+      }
+      ){
+    FirebaseAuth.instance.createUserWithEmailAndPassword(email: studentModel.email!, password: password).
+    then((value) {
+      FirebaseFirestore.instance.collection(studentModel.courseName!).doc(studentModel.courseDate)
+          .collection("students").doc(value.user!.uid).set(studentModel.toMap(id: value.user!.uid));
+    });
+  }
 }
+

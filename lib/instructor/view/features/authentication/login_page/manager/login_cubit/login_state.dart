@@ -10,3 +10,4 @@ class LoginError extends LoginState {}
 class ChangeObscure extends LoginState {}
 
 class ChangeScreenFit extends LoginState {}
+class LoginSuccess extends LoginState {}

@@ -1,6 +1,6 @@
-import 'package:attendance_app/instructor/layout/layout.dart';
 import 'package:attendance_app/instructor/view/features/authentication/login_page/widgets/animated_login_widgets/button_animated_login.dart';
 import 'package:attendance_app/instructor/view/features/authentication/login_page/widgets/animated_login_widgets/logo_opacity_animated_login.dart';
+import 'package:attendance_app/model/student_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,6 +34,7 @@ class LogIn extends StatelessWidget {
                         children: [
                           const Expanded(child: LogoOpacity()),
                           TextFormField(
+                            controller: cubit.emailController,
                             keyboardType: TextInputType.emailAddress,
                             style: const TextStyle(color: Colors.white),
                             onTap: () {
@@ -52,6 +53,7 @@ class LogIn extends StatelessWidget {
                           ),
                           const SizedBox(height: 20),
                           TextFormField(
+                            controller: cubit.passwordController,
                             keyboardType: TextInputType.visiblePassword,
                             style: const TextStyle(color: Colors.white),
                             obscureText: cubit.obscure,
@@ -98,8 +100,23 @@ class LogIn extends StatelessWidget {
                             }
                           },
                           onTap: () {
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (builder) => const LayOut()));
+                            print("presses");
+                            cubit.logIn(
+                                context: context,
+                                password: cubit.passwordController.text,
+                                studentModel: StudentModel(
+                                    name: cubit.nameController.text,
+                                    email: cubit.emailController.text,
+                                    phoneNo: cubit.phoneNumberController.text,
+                                    profilePicture: "",
+                                    attendance: 0,
+                                    absence: 24,
+                                    totalGrades: 0,
+                                    courseName: cubit.coursesDropDownMenuValue,
+                                    courseDate: cubit.dateDropDownMenuValue));
+
                           },
+                          // Navigator.pushReplacement(context, MaterialPageRoute(builder: (builder) => const LayOut()));
                         ),
                         const Spacer(),
                         Row(
@@ -112,11 +129,17 @@ class LogIn extends StatelessWidget {
                             ),
                             TextButton(
                               onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (builder) => const SignUp()));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (builder) => const SignUp()));
                               },
                               child: Text(
                                 'SignUp',
-                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(
                                       color: Colors.teal,
                                     ),
                               ),

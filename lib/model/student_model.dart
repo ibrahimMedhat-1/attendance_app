@@ -6,16 +6,19 @@ class StudentModel {
   int? attendance;
   int? absence;
   int? totalGrades;
+  String? courseName;
+  String? courseDate;
 
-  StudentModel({
-    required this.name,
-    required this.email,
-    required this.phoneNo,
-    required this.profilePicture,
-    required this.attendance,
-    required this.absence,
-    required this.totalGrades,
-  });
+  StudentModel(
+      {required this.name,
+      required this.email,
+      required this.phoneNo,
+      required this.profilePicture,
+      required this.attendance,
+      required this.absence,
+      required this.totalGrades,
+      required this.courseName,
+      required this.courseDate});
 
   StudentModel.fromJson(Map<String, dynamic>? json) {
     name = json!['name'];
@@ -25,9 +28,11 @@ class StudentModel {
     attendance = json['attendance'];
     absence = json['absence'];
     totalGrades = json['totalGrades'];
+    courseName = json['courseName'];
+    courseDate = json['courseDate'];
   }
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap({required id}) => {
         'name': name,
         'email': email,
         'phoneNo': phoneNo,
@@ -35,5 +40,8 @@ class StudentModel {
         'attendance': attendance,
         'absence': absence,
         'totalGrades': totalGrades,
+        'courseName': courseName,
+        'courseDate': courseDate,
+        'id': id
       };
 }

@@ -1,13 +1,11 @@
 
 
-import 'package:attendance_app/model/student_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../layout/layout.dart';
-import '../../../../../../shared/shared.dart';
 
 part 'login_state.dart';
 

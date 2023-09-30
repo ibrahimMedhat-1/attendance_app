@@ -24,33 +24,33 @@ class SignUpCubit extends Cubit<SignUpState> {
   GlobalKey<FormState> signupFormKey = GlobalKey<FormState>(debugLabel: 'signupFormKey');
   List<DropdownMenuItem<String>> courses = const [
     DropdownMenuItem(
-      value: 'Flutter Beginner',
+      value: 'FlutterBeginner',
       child: Text('Flutter Beginner'),
     ),
     DropdownMenuItem(
-      value: 'Flutter Advanced',
+      value: 'FlutterAdvanced',
       child: Text('Flutter Advanced'),
     ),
     DropdownMenuItem(
-      value: 'Data Structure',
+      value: 'DataStructure',
       child: Text('Data Structure'),
     ),
     DropdownMenuItem(
-      value: 'Object Oriented Programming',
+      value: 'ObjectOrientedProgramming',
       child: Text('Object Oriented Programming'),
     ),
   ];
   List<DropdownMenuItem<String>> dates = const [
     DropdownMenuItem(
-      value: 'Saturday - Tuesday',
+      value: 'Saturday-Tuesday',
       child: Text('Saturday - Tuesday'),
     ),
     DropdownMenuItem(
-      value: 'Sunday - Wednesday',
+      value: 'Sunday-Wednesday',
       child: Text('Sunday - Wednesday'),
     ),
     DropdownMenuItem(
-      value: 'Monday - Thursday',
+      value: 'Monday-Thursday',
       child: Text('Monday - Thursday'),
     ),
   ];

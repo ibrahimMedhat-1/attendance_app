@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../layout/layout.dart';
+import '../../../../../../shared/shared.dart';
 
 part 'login_state.dart';
 
@@ -55,56 +56,57 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   void logIn({
-    required StudentModel studentModel,
+  required String email,
     required String password,
     required BuildContext context,
-  }) async {
-    try {
+  }) async { String uid ;
+
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(
-          email: studentModel.email!, password: password)
+          email: email, password: password)
           .then((value) async {
+            uid =  value.user!.uid;
+
         await FirebaseFirestore.instance
-            .collection(studentModel.courseName!)
-            .doc(studentModel.courseDate)
             .collection("students")
+            .doc(uid)
             .get()
-            .then((value) {
-          emit(LoginSuccess());
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (BuildContext context) => const LayOut(),
+            .then((value) async {
+              var courseName = await value.data()!["courseName"];
+              var courseDate = await value.data()!["courseDate"];
+              FirebaseFirestore.instance.collection(courseName).doc(courseDate).collection("students")
+             .get().then((value) {
+               // for (var element in value.docs) {
+               //   sharedStudents.add(StudentModel.fromJson(element.data()));
+               // }
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LayOut(),));
+              });
+
+        });
+      }).catchError((e){
+        if (e.code == 'user-not-found') {
+          debugPrint("object");
+          emit(LoginError());
+          showSnackBar(context: context, text: 'No user found for that email.');
+        } else if (e.code == 'wrong-password') {
+          emit(LoginError());
+          showSnackBar(context: context, text: 'Wrong password.');
+        }else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('An error occurred.'),
             ),
           );
-        });
+        }
       });
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        emit(LoginError());
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Text('No user found for that email.'),
-          ),
-        );
-      } else if (e.code == 'wrong-password') {
-        emit(LoginError());
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Text('Wrong password.'),
-          ),
-        );
-      }
-    } catch (e) {
-      emit(LoginError());
-      print(e.toString());
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('An error occurred.'),
-        ),
-      );
-    }
   }
+  dynamic showSnackBar ({required context ,required String text})=>  ScaffoldMessenger.of(context).showSnackBar(
+     SnackBar(
+      content: Text(text),
+    ),
+  );
+  
+
 }
 
 

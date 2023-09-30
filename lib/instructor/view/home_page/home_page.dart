@@ -1,7 +1,9 @@
+import 'package:attendance_app/instructor/shared/shared.dart';
 import 'package:attendance_app/instructor/view/home_page/widgets/listview_animation.dart';
-import 'package:attendance_app/instructor/view_model/homepage_cubit/home_page_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'manger/homepage_cubit/home_page_cubit.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -55,7 +57,9 @@ class HomePage extends StatelessWidget {
                         dropdownColor: Colors.black,
                         style: Theme.of(context).textTheme.bodyMedium,
                         onChanged: (value) {
+                          debugPrint(value);
                           cubit.changeCoursesDropDownMenuValue(value!);
+                          cubit.getCourseStudents(courseName: value);
                         },
                         hint: Text(
                           'Choose your course',
@@ -67,7 +71,7 @@ class HomePage extends StatelessWidget {
                   Expanded(
                     child: SizedBox(
                       child: AnimationList(
-                        studentsModel: cubit.students,
+                        studentsModel: cubit.sharedStudents,
                       ),
                     ),
                   ),

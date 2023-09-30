@@ -6,3 +6,4 @@ abstract class HomePageState {}
 class HomePageInitial extends HomePageState {}
 
 class ChangeCoursesDropDownMenuValue extends HomePageState {}
+class GetAllCourseStudents extends HomePageState {}

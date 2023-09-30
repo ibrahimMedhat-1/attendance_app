@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../model/student_model.dart';
+import '../../../../../model/student_model.dart';
+import '../../../../shared/shared.dart';
+
+
 
 part 'home_page_state.dart';
 
@@ -9,6 +13,7 @@ class HomePageCubit extends Cubit<HomePageState> {
   HomePageCubit() : super(HomePageInitial());
 
   static HomePageCubit get(context) => BlocProvider.of(context);
+  List<StudentModel>sharedStudents=[];
   List<DropdownMenuItem<String>> courses = const [
     DropdownMenuItem(
       value: 'Flutter Beginner',
@@ -27,25 +32,28 @@ class HomePageCubit extends Cubit<HomePageState> {
       child: Text('Object Oriented Programming'),
     ),
   ];
-  List<StudentModel> students = [
-    StudentModel(
-        name: 'ibrahim',
-        email: 'Ibrahimmedhat112@gmail.com',
-        phoneNo: '01064172976',
-        profilePicture: 'assets/profilePic.jpeg',
-        attendance: 0,
-        absence: 24,
-        totalGrades: 48,
-      courseDate: '',
-      courseName: '',
 
-    ),
-
-  ];
   String? coursesDropDownMenuValue;
 
   void changeCoursesDropDownMenuValue(String newValue) {
     coursesDropDownMenuValue = newValue;
     emit(ChangeCoursesDropDownMenuValue());
+  }
+  void getCourseStudents(
+      {required String courseName})async{
+    sharedStudents =[];
+    emit(GetAllCourseStudents());
+    await FirebaseFirestore.instance.collection(courseName).get()
+        .then((value) {
+      for (var element in value.docs) {
+        element.reference.collection("students").get().then((value) {
+          for (var element in value.docs) {
+            sharedStudents.add(StudentModel.fromJson(element.data()));
+
+          }
+          emit(GetAllCourseStudents());
+        });
+      }
+    });
   }
 }

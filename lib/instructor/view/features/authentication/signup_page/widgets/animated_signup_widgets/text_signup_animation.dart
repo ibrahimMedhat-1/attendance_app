@@ -18,7 +18,7 @@ class _TextSignUpAnimationState extends State<TextSignUpAnimation> with SingleTi
       vsync: this,
       duration: const Duration(seconds: 1),
     );
-    animation = Tween<Offset>(begin: Offset(0, 0.1), end: Offset(0, -0.1)).animate(animationController);
+    animation = Tween<Offset>(begin: const Offset(0, 0.1), end: const Offset(0, -0.1)).animate(animationController);
     animationController.repeat(reverse: true);
   }
 

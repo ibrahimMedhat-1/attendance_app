@@ -1,6 +1,5 @@
 import 'package:attendance_app/instructor/view/features/authentication/login_page/widgets/animated_login_widgets/button_animated_login.dart';
 import 'package:attendance_app/instructor/view/features/authentication/login_page/widgets/animated_login_widgets/logo_opacity_animated_login.dart';
-import 'package:attendance_app/model/student_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -100,21 +99,10 @@ class LogIn extends StatelessWidget {
                             }
                           },
                           onTap: () {
-                            print("presses");
                             cubit.logIn(
                                 context: context,
                                 password: cubit.passwordController.text,
-                                studentModel: StudentModel(
-                                    name: cubit.nameController.text,
-                                    email: cubit.emailController.text,
-                                    phoneNo: cubit.phoneNumberController.text,
-                                    profilePicture: "",
-                                    attendance: 0,
-                                    absence: 24,
-                                    totalGrades: 0,
-                                    courseName: cubit.coursesDropDownMenuValue,
-                                    courseDate: cubit.dateDropDownMenuValue));
-
+                                email: cubit.emailController.text);
                           },
                           // Navigator.pushReplacement(context, MaterialPageRoute(builder: (builder) => const LayOut()));
                         ),

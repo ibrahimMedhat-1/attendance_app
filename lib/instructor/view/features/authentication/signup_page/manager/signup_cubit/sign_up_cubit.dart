@@ -105,14 +105,21 @@ class SignUpCubit extends Cubit<SignUpState> {
   void signup({
     required StudentModel studentModel,
     required String password,
-  }) {
+  }) { String uid;
     FirebaseAuth.instance.createUserWithEmailAndPassword(email: studentModel.email!, password: password).then((value) {
-      FirebaseFirestore.instance
-          .collection(studentModel.courseName!)
-          .doc(studentModel.courseDate)
-          .collection("students")
-          .doc(value.user!.uid)
-          .set(studentModel.toMap(id: value.user!.uid));
+      uid =value.user!.uid;
+      FirebaseFirestore.instance.collection('students').doc(uid).set({
+        "id" : uid,
+        "courseName":studentModel.courseName,
+        "courseDate":studentModel.courseDate
+      }).then((value) {
+        FirebaseFirestore.instance
+            .collection(studentModel.courseName!)
+            .doc(studentModel.courseDate)
+            .collection("students")
+            .doc(uid)
+            .set(studentModel.toMap(id: uid));
+      });
     });
   }
 }

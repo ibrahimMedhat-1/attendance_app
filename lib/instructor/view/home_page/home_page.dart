@@ -1,4 +1,3 @@
-import 'package:attendance_app/instructor/shared/shared.dart';
 import 'package:attendance_app/instructor/view/home_page/widgets/listview_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

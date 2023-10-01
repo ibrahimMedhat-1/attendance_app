@@ -16,19 +16,19 @@ class HomePageCubit extends Cubit<HomePageState> {
   List<StudentModel>sharedStudents=[];
   List<DropdownMenuItem<String>> courses = const [
     DropdownMenuItem(
-      value: 'Flutter Beginner',
+      value: 'FlutterBeginner',
       child: Text('Flutter Beginner'),
     ),
     DropdownMenuItem(
-      value: 'Flutter Advanced',
+      value: 'FlutterAdvanced',
       child: Text('Flutter Advanced'),
     ),
     DropdownMenuItem(
-      value: 'Data Structure',
+      value: 'DataStructure',
       child: Text('Data Structure'),
     ),
     DropdownMenuItem(
-      value: 'Object Oriented Programming',
+      value: 'ObjectOrientedProgramming',
       child: Text('Object Oriented Programming'),
     ),
   ];

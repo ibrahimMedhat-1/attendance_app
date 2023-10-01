@@ -1,4 +1,6 @@
+import 'package:attendance_app/instructor/view/home_page/manger/homepage_cubit/home_page_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../model/student_model.dart';
 import '../../features/in_student_features/student_details_page/student_details_page.dart';
@@ -29,10 +31,9 @@ class _AnimationListState extends State<AnimationList> with SingleTickerProvider
         ),
         child: Row(
           children: [
-            CircleAvatar(
-              backgroundImage: AssetImage('${student.profilePicture}'),
-              radius: MediaQuery.of(context).size.width * 0.1,
-            ),
+            student.profilePicture== ''? CircleAvatar( backgroundImage: const AssetImage('assets/profile.jpg'),radius: MediaQuery.of(context).size.width * 0.1,)
+            :CircleAvatar( backgroundImage:NetworkImage("${student.profilePicture}"),radius: MediaQuery.of(context).size.width * 0.1,),
+
             const SizedBox(width: 10),
             Expanded(
               child: Column(
@@ -88,6 +89,15 @@ class _AnimationListState extends State<AnimationList> with SingleTickerProvider
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer<HomePageCubit, HomePageState>(
+  listener: (context, state) {
+    if(state is GetAllCourseStudents){
+      setState(() {
+        addStudent();
+      });
+    }
+  },
+  builder: (context, state) {
     return AnimatedList(
       key: listKey,
       controller: scrollController,
@@ -114,5 +124,7 @@ class _AnimationListState extends State<AnimationList> with SingleTickerProvider
       },
       initialItemCount: studentTileList.length,
     );
+  },
+);
   }
 }

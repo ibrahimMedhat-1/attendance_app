@@ -105,7 +105,8 @@ class SignUpCubit extends Cubit<SignUpState> {
   void signup({
     required StudentModel studentModel,
     required String password,
-  }) { String uid;
+  }) {
+    String uid;
     FirebaseAuth.instance.createUserWithEmailAndPassword(email: studentModel.email!, password: password).then((value) {
       uid =value.user!.uid;
       FirebaseFirestore.instance.collection('students').doc(uid).set({

@@ -7,3 +7,4 @@ class HomePageInitial extends HomePageState {}
 
 class ChangeCoursesDropDownMenuValue extends HomePageState {}
 class GetAllCourseStudents extends HomePageState {}
+class ClearStudentsList extends HomePageState {}

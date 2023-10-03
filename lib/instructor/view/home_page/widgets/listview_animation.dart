@@ -75,22 +75,21 @@ class _AnimationListState extends State<AnimationList> with SingleTickerProvider
     for (var student in widget.studentsModel) {
       await Future.delayed(const Duration(milliseconds: 200)).then((value) {});
       studentTileList.add(studentTile(student));
-      listKey.currentState!.insertItem(studentTileList.length - 1);
+      listKey.currentState!.insertItem(studentTileList.length -1);
     }
   }
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      addStudent();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomePageCubit, HomePageState>(
   listener: (context, state) {
+    if(state is ClearStudentsList){
+      setState(() {
+        studentTileList =[];
+        listKey.currentState!.removeAllItems((context, animation) {
+          return const SizedBox();
+        });
+      });
+    }
     if(state is GetAllCourseStudents){
       setState(() {
         addStudent();

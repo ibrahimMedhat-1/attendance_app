@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../model/student_model.dart';
-import '../../../../shared/shared.dart';
-
-
 
 part 'home_page_state.dart';
 
@@ -13,7 +10,7 @@ class HomePageCubit extends Cubit<HomePageState> {
   HomePageCubit() : super(HomePageInitial());
 
   static HomePageCubit get(context) => BlocProvider.of(context);
-  List<StudentModel>sharedStudents=[];
+  List<StudentModel> sharedStudents = [];
   List<DropdownMenuItem<String>> courses = const [
     DropdownMenuItem(
       value: 'FlutterBeginner',
@@ -39,20 +36,24 @@ class HomePageCubit extends Cubit<HomePageState> {
     coursesDropDownMenuValue = newValue;
     emit(ChangeCoursesDropDownMenuValue());
   }
-  void getCourseStudents(
-      {required String courseName})async{
-    sharedStudents =[];
-    emit(GetAllCourseStudents());
-    await FirebaseFirestore.instance.collection(courseName).get()
-        .then((value) {
+
+  void getCourseStudents({required String courseName}) async {
+    sharedStudents = [];
+    emit(ClearStudentsList());
+    await FirebaseFirestore.instance
+        .collection(courseName)
+        .get()
+        .then((value) async {
       for (var element in value.docs) {
-        element.reference.collection("students").get().then((value) {
+        await element.reference.collection("students").get().then((value) {
           for (var element in value.docs) {
             sharedStudents.add(StudentModel.fromJson(element.data()));
-
+            debugPrint("Course name is 1 ${courseName}");
           }
-          emit(GetAllCourseStudents());
+          debugPrint("Course name is 2 ${courseName}");
         });
+        emit(GetAllCourseStudents());
+        debugPrint("Course name is 3 ${courseName}");
       }
     });
   }

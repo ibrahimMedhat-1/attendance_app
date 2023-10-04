@@ -1,3 +1,4 @@
+import 'package:attendance_app/instructor/view/features/edit_assignments-quizzes_page/edit_sessions/edit_session_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,6 +13,7 @@ class EditPageCubit extends Cubit<EditPageState> {
   static EditPageCubit get(context) => BlocProvider.of(context);
 
   List<Widget> editPage = const [
+    EditSessionPage(),
     EditAssignments(),
     EditQuizzes(),
   ];

@@ -45,7 +45,7 @@ class _SelectAnimationState extends State<SelectAnimation> with SingleTickerProv
                 child: Container(
                   margin: const EdgeInsets.only(right: 10),
                   height: 50,
-                  width: (MediaQuery.of(context).size.width / 2) - 30,
+                  width: (MediaQuery.of(context).size.width / 3) - 30,
                   decoration: BoxDecoration(
                     color: Colors.grey,
                     borderRadius: BorderRadius.circular(20),
@@ -69,14 +69,43 @@ class _SelectAnimationState extends State<SelectAnimation> with SingleTickerProv
                   child: Container(
                     margin: const EdgeInsets.only(right: 10),
                     height: 50,
-                    width: (MediaQuery.of(context).size.width / 2) - 30,
+                    width: (MediaQuery.of(context).size.width / 3) - 30,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Sessions',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  onTap: () {
+                    animationController.reverse();
+                    animationController.addStatusListener((status) {
+                      if (status == AnimationStatus.dismissed) {
+                        cubit.changeEditPageIndex(1);
+                        print("object");
+                      }
+                    });
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.only(right: 10),
+                    height: 50,
+                    width: (MediaQuery.of(context).size.width / 3) - 30,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Center(
                       child: Text(
                         'Assignments',
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontSize: 14,
+                            ),
                       ),
                     ),
                   ),
@@ -88,14 +117,14 @@ class _SelectAnimationState extends State<SelectAnimation> with SingleTickerProv
                     animationController.forward();
                     animationController.addStatusListener((status) {
                       if (status == AnimationStatus.completed) {
-                        cubit.changeEditPageIndex(1);
+                        cubit.changeEditPageIndex(2);
                       }
                     });
                   },
                   child: Container(
                     height: 50,
                     margin: const EdgeInsets.only(right: 10),
-                    width: (MediaQuery.of(context).size.width / 2) - 30,
+                    width: (MediaQuery.of(context).size.width / 3) - 30,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                     ),

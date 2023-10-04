@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'widgets/attendance_page_card.dart';
 
 class AttendancePage extends StatelessWidget {
-  const AttendancePage({super.key});
+   const AttendancePage({super.key,required this.attendance,required this.absence});
+  final String attendance;
+  final String absence;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class AttendancePage extends StatelessWidget {
               color: Colors.white,
               child: Center(
                 child: Text(
-                  'Total Attendance : 0',
+                  'Total Attendance : $attendance',
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.black),
                 ),
               ),
@@ -34,7 +36,7 @@ class AttendancePage extends StatelessWidget {
               color: Colors.white,
               child: Center(
                 child: Text(
-                  'Total Absence : 24',
+                  'Total Absence : $absence',
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.black),
                 ),
               ),

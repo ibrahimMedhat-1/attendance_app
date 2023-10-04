@@ -48,13 +48,14 @@ class HomePageCubit extends Cubit<HomePageState> {
         await element.reference.collection("students").get().then((value) {
           for (var element in value.docs) {
             sharedStudents.add(StudentModel.fromJson(element.data()));
-            debugPrint("Course name is 1 ${courseName}");
+            debugPrint("Course name is 1 $courseName");
           }
-          debugPrint("Course name is 2 ${courseName}");
+          debugPrint("Course name is 2 $courseName");
         });
-        emit(GetAllCourseStudents());
-        debugPrint("Course name is 3 ${courseName}");
+
+        debugPrint("Course name is 3 $courseName");
       }
+      emit(GetAllCourseStudents());
     });
   }
 }

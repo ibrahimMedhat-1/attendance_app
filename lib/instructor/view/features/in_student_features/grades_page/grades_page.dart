@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class GradesPage extends StatelessWidget {
   final String studentName;
+  final String quiz;
+  final String attendance;
 
   const GradesPage({
     super.key,
-    required this.studentName,
+    required this.studentName,required this.quiz,required this.attendance
   });
 
   @override
@@ -73,9 +75,9 @@ class GradesPage extends StatelessWidget {
                     ),
                     SizedBox(
                       height: textHeight,
-                      child: const Center(
-                          child: Text(
-                        '24',
+                      child:  Center(
+                          child: Text(attendance
+                        ,
                       )),
                     ),
                   ]),
@@ -89,9 +91,9 @@ class GradesPage extends StatelessWidget {
                     ),
                     SizedBox(
                       height: textHeight,
-                      child: const Center(
+                      child:  Center(
                           child: Text(
-                        '6',
+                       quiz,
                       )),
                     ),
                   ]),

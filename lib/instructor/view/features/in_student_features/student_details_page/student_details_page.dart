@@ -30,10 +30,8 @@ class StudentDetails extends StatelessWidget {
                   children: [
                     Align(
                       alignment: Alignment.center,
-                      child: CircleAvatar(
-                        backgroundImage: AssetImage(student.profilePicture!),
-                        radius: MediaQuery.of(context).size.width * 0.25,
-                      ),
+                      child:  student.profilePicture== ''? CircleAvatar( backgroundImage: const AssetImage('assets/profile.jpg'),radius: MediaQuery.of(context).size.width * 0.25,)
+                          :CircleAvatar( backgroundImage:NetworkImage("${student.profilePicture}"),radius: MediaQuery.of(context).size.width * 0.1,),
                     ),
                     const SizedBox(
                       height: 10,
@@ -42,7 +40,7 @@ class StudentDetails extends StatelessWidget {
                       child: Container(
                         padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.04),
                         decoration: BoxDecoration(
-                          color: Colors.grey,
+                          color: Colors.white,
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Column(
@@ -109,7 +107,9 @@ class StudentDetails extends StatelessWidget {
                             DefaultButton(
                                 onTap: () {
                                   Navigator.push(
-                                      context, MaterialPageRoute(builder: (builder) => const AttendancePage()));
+                                      context, MaterialPageRoute(builder: (builder) =>  AttendancePage(
+                                    absence: student.absence.toString(),attendance: student.attendance.toString(),
+                                  )));
                                 },
                                 text: 'Attendance'),
                             DefaultButton(
@@ -126,7 +126,7 @@ class StudentDetails extends StatelessWidget {
                             DefaultButton(
                                 onTap: () {
                                   Navigator.push(context,
-                                      MaterialPageRoute(builder: (builder) => GradesPage(studentName: student.name!)));
+                                      MaterialPageRoute(builder: (builder) => GradesPage(studentName: student.name!,quiz: student.totalGrades.toString(),attendance:student.attendance.toString())));
                                 },
                                 text: 'Grades'),
                           ],

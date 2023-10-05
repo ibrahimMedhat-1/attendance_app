@@ -9,9 +9,11 @@ class SelectAnimation extends StatefulWidget {
   State<SelectAnimation> createState() => _SelectAnimationState();
 }
 
-class _SelectAnimationState extends State<SelectAnimation> with SingleTickerProviderStateMixin {
+class _SelectAnimationState extends State<SelectAnimation> with TickerProviderStateMixin {
   late AnimationController animationController;
-  late Animation<Offset> animation;
+  late Animation<Offset> animationAssignments;
+  late Animation<Offset> animationQuizzes;
+  bool quizzes = false;
 
   @override
   void initState() {
@@ -19,7 +21,10 @@ class _SelectAnimationState extends State<SelectAnimation> with SingleTickerProv
       vsync: this,
       duration: const Duration(milliseconds: 200),
     );
-    animation = Tween<Offset>(begin: const Offset(0, 0), end: const Offset(1, 0)).animate(animationController);
+    animationAssignments =
+        Tween<Offset>(begin: const Offset(0, 0), end: const Offset(1, 0)).animate(animationController);
+    animationQuizzes =
+        Tween<Offset>(begin: animationAssignments.value, end: const Offset(2, 0)).animate(animationController);
     super.initState();
   }
 
@@ -41,7 +46,7 @@ class _SelectAnimationState extends State<SelectAnimation> with SingleTickerProv
               animation: animationController,
               builder: (context, child) => child!,
               child: SlideTransition(
-                position: animation,
+                position: quizzes ? animationQuizzes : animationAssignments,
                 child: Container(
                   margin: const EdgeInsets.only(right: 10),
                   height: 50,
@@ -61,6 +66,7 @@ class _SelectAnimationState extends State<SelectAnimation> with SingleTickerProv
                   onTap: () {
                     animationController.reverse();
                     animationController.addStatusListener((status) {
+                      print(status);
                       if (status == AnimationStatus.dismissed) {
                         cubit.changeEditPageIndex(0);
                       }
@@ -85,11 +91,19 @@ class _SelectAnimationState extends State<SelectAnimation> with SingleTickerProv
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
                   onTap: () {
-                    animationController.reverse();
+                    animationController.reset();
+                    animationController.forward();
+                    setState(() {
+                      quizzes = false;
+                    });
+                    if (quizzes == false) {
+                      cubit.changeEditPageIndex(1);
+                    }
                     animationController.addStatusListener((status) {
-                      if (status == AnimationStatus.dismissed) {
+                      print(status);
+                      if (status == AnimationStatus.completed && quizzes == false) {
+                        animationController.isDismissed;
                         cubit.changeEditPageIndex(1);
-                        print("object");
                       }
                     });
                   },
@@ -114,9 +128,16 @@ class _SelectAnimationState extends State<SelectAnimation> with SingleTickerProv
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
                   onTap: () {
+                    animationController.reset();
                     animationController.forward();
+                    setState(() {
+                      quizzes = true;
+                    });
+                    if (quizzes == true) {
+                      cubit.changeEditPageIndex(2);
+                    }
                     animationController.addStatusListener((status) {
-                      if (status == AnimationStatus.completed) {
+                      if (status == AnimationStatus.completed && quizzes == true) {
                         cubit.changeEditPageIndex(2);
                       }
                     });

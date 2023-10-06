@@ -21,8 +21,7 @@ class SignUpCubit extends Cubit<SignUpState> {
   IconData suffixIcon = Icons.visibility_off;
   bool validated = false;
   bool obscure = true;
-  GlobalKey<FormState> signupFormKey =
-      GlobalKey<FormState>(debugLabel: 'signupFormKey');
+  GlobalKey<FormState> signupFormKey = GlobalKey<FormState>(debugLabel: 'signupFormKey');
   List<DropdownMenuItem<String>> courses = const [
     DropdownMenuItem(
       value: 'FlutterBeginner',
@@ -108,37 +107,30 @@ class SignUpCubit extends Cubit<SignUpState> {
     required String password,
   }) {
     String uid;
-    FirebaseAuth.instance
-        .createUserWithEmailAndPassword(
-            email: studentModel.email!, password: password)
-        .then((value) {
+    FirebaseAuth.instance.createUserWithEmailAndPassword(email: studentModel.email!, password: password).then((value) {
       uid = value.user!.uid;
-      FirebaseFirestore.instance.collection('students').doc(uid).set({
-        "id": uid,
-        "courseName": studentModel.courseName,
-        "courseDate": studentModel.courseDate
-      }).then((value) {
-        FirebaseFirestore.instance
-            .collection('courses')
-            .doc(studentModel.courseName!)
-            .set({
-          'studentsnumber': 0,
+      FirebaseFirestore.instance
+          .collection('students')
+          .doc(uid)
+          .set({"id": uid, "courseName": studentModel.courseName, "courseDate": studentModel.courseDate}).then((value) {
+        FirebaseFirestore.instance.collection('courses').doc(studentModel.courseName!).set({
+          'studentsNumber': 0,
         }).then((value) {
           FirebaseFirestore.instance
               .collection('courses')
               .doc(studentModel.courseName!)
-              .collection(studentModel.courseDate!)
-              .doc('students')
-              .collection("uid")
+              .collection("dates")
+              .doc(studentModel.courseDate!)
+              .collection("students")
               .doc(uid)
               .set(studentModel.toMap(id: uid))
               .then((value) {
             FirebaseFirestore.instance
                 .collection('courses')
                 .doc(studentModel.courseName!)
-                .collection(studentModel.courseDate!)
-                .doc('students')
-                .collection("uid")
+                .collection("dates")
+                .doc(studentModel.courseDate!)
+                .collection("students")
                 .doc(uid)
                 .collection("grades")
                 .doc("grades")
@@ -147,18 +139,19 @@ class SignUpCubit extends Cubit<SignUpState> {
               FirebaseFirestore.instance
                   .collection('courses')
                   .doc(studentModel.courseName!)
-                  .update({
-                // 'studentsnumber': value.docs.length,
+                  .collection('dates')
+                  .doc(studentModel.courseDate!)
+                  .collection("students")
+                  .get()
+                  .then((value) {
+                FirebaseFirestore.instance
+                    .collection('courses')
+                    .doc(studentModel.courseName!)
+                    .update({"studentsNumber": value.docs.length});
               });
             });
           });
         });
-
-        // .collection(studentModel.courseName!)
-        // .doc(studentModel.courseDate)
-        // .collection("students")
-        // .doc(uid)
-        // .set(studentModel.toMap(id: uid));
       });
     });
   }

@@ -1,11 +1,11 @@
-
-
+import 'package:attendance_app/instructor/layout/layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../layout/layout.dart';
+import '../../../../../../../model/student_model.dart';
+import '../../../../../../shared/shared.dart';
 
 part 'login_state.dart';
 
@@ -13,15 +13,14 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
 
   static LoginCubit get(context) => BlocProvider.of(context);
-  TextEditingController nameController =TextEditingController();
-  TextEditingController emailController =TextEditingController();
-  TextEditingController passwordController =TextEditingController();
-  TextEditingController phoneNumberController =TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
   String? coursesDropDownMenuValue;
   String? dateDropDownMenuValue;
 
-  GlobalKey<FormState> loginFormKey =
-  GlobalKey<FormState>(debugLabel: 'loginFormKey');
+  GlobalKey<FormState> loginFormKey = GlobalKey<FormState>(debugLabel: 'loginFormKey');
   bool loggedIn = false;
   bool obscure = true;
   IconData suffixIcon = Icons.visibility_off;
@@ -54,64 +53,69 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   void logIn({
-  required String email,
+    required String email,
     required String password,
     required BuildContext context,
-  }) async { String uid ;
+  }) async {
+    String uid;
 
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(
-          email: email, password: password)
-          .then((value) async {
-            uid =  value.user!.uid;
+    await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password).then((value) async {
+      uid = value.user!.uid;
 
-        await FirebaseFirestore.instance
-            .collection("students")
-            .doc(uid)
-            .get()
-            .then((value) async {
+      var stu = FirebaseFirestore.instance.collection('students').where('courseName', isEqualTo: 'FlutterAdvanced');
+      print(stu);
+      await FirebaseFirestore.instance.collection('instructor').get().then((value) {
+        value.docs.forEach((element) async {
+          if (element.id == email) {
+            print("object");
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (builder) => const InstructorLayOut()));
+          } else {
+            await FirebaseFirestore.instance.collection("students").doc(uid).get().then((value) async {
               var courseName = await value.data()!["courseName"];
               var courseDate = await value.data()!["courseDate"];
-              FirebaseFirestore.instance.collection('courses')
-              .doc(courseName)
-              .collection(courseDate)
-                  .doc('students')
-                  .collection("uid")
+              FirebaseFirestore.instance
+                  .collection('courses')
+                  .doc(courseName)
+                  .collection('dates')
+                  .doc(courseDate)
+                  .collection("students")
                   .doc(uid)
-              .get().then((value) {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LayOut(),));
+                  .get()
+                  .then((value) {
+                student = StudentModel.fromJson(value.data());
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => InstructorLayOut(),
+                ));
               });
-             //  collection(courseName).doc(courseDate).collection("students")
-             // .get().then((value) {
-             //    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LayOut(),));
-             //  });
-
+              //  collection(courseName).doc(courseDate).collection("students")
+              // .get().then((value) {
+              //    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LayOut(),));
+              //  });
+            });
+          }
         });
-      }).catchError((e){
-        if (e.code == 'user-not-found') {
-          debugPrint("object");
-          emit(LoginError());
-          showSnackBar(context: context, text: 'No user found for that email.');
-        } else if (e.code == 'wrong-password') {
-          emit(LoginError());
-          showSnackBar(context: context, text: 'Wrong password.');
-        }else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('An error occurred.'),
-            ),
-          );
-        }
       });
+    }).catchError((e) {
+      if (e.code == 'user-not-found') {
+        debugPrint("object");
+        emit(LoginError());
+        showSnackBar(context: context, text: 'No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        emit(LoginError());
+        showSnackBar(context: context, text: 'Wrong password.');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('An error occurred.'),
+          ),
+        );
+      }
+    });
   }
-  dynamic showSnackBar ({required context ,required String text})=>  ScaffoldMessenger.of(context).showSnackBar(
-     SnackBar(
-      content: Text(text),
-    ),
-  );
-  
 
+  dynamic showSnackBar({required context, required String text}) => ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(text),
+        ),
+      );
 }
-
-
-

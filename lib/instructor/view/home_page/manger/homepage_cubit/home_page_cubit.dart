@@ -37,18 +37,24 @@ class HomePageCubit extends Cubit<HomePageState> {
     emit(ChangeCoursesDropDownMenuValue());
   }
 
-  void getCourseStudents({required String courseName}) async {
+  void getCourseStudents({required String courseName,}) async {
+
     sharedStudents = [];
     emit(ClearStudentsList());
-    await FirebaseFirestore.instance.collection(courseName).get().then((value) async {
-      for (var element in value.docs) {
-        await element.reference.collection("students").get().then((value) {
-          for (var element in value.docs) {
-            sharedStudents.add(StudentModel.fromJson(element.data()));
-          }
-        });
-      }
-      emit(GetAllCourseStudents());
-    });
+    await FirebaseFirestore.instance.collection('courses')
+    .doc(courseName)
+    .get().then((value) async{
+    }
+    // collection(courseName).get().then((value) async {
+    //   for (var element in value.docs) {
+    //     await element.reference.collection("students").get().then((value) {
+    //       for (var element in value.docs) {
+    //         sharedStudents.add(StudentModel.fromJson(element.data()));
+    //       }
+    //     });
+    //   }
+    //   emit(GetAllCourseStudents());
+    // });
+    );
   }
 }

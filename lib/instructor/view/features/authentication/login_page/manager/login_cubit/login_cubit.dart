@@ -72,13 +72,19 @@ class LoginCubit extends Cubit<LoginState> {
             .then((value) async {
               var courseName = await value.data()!["courseName"];
               var courseDate = await value.data()!["courseDate"];
-              FirebaseFirestore.instance.collection(courseName).doc(courseDate).collection("students")
-             .get().then((value) {
-               // for (var element in value.docs) {
-               //   sharedStudents.add(StudentModel.fromJson(element.data()));
-               // }
+              FirebaseFirestore.instance.collection('courses')
+              .doc(courseName)
+              .collection(courseDate)
+                  .doc('students')
+                  .collection("uid")
+                  .doc(uid)
+              .get().then((value) {
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LayOut(),));
               });
+             //  collection(courseName).doc(courseDate).collection("students")
+             // .get().then((value) {
+             //    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LayOut(),));
+             //  });
 
         });
       }).catchError((e){

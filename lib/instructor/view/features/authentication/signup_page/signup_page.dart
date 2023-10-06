@@ -195,6 +195,10 @@ class SignUp extends StatelessWidget {
                       }, onTap: () {
                         cubit.signup(
                             studentModel: StudentModel(
+                              assignment: 0,
+                                finalProject: 0,
+                                project1: 0,
+                                project2: 0,
                                 name: cubit.nameController.text,
                                 email: cubit.emailController.text,
                                 phoneNo: cubit.phoneNumberController.text,

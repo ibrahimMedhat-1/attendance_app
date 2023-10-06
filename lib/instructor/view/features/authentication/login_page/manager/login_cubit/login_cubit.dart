@@ -1,4 +1,5 @@
 import 'package:attendance_app/instructor/layout/layout.dart';
+import 'package:attendance_app/test.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -62,15 +63,17 @@ class LoginCubit extends Cubit<LoginState> {
     await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password).then((value) async {
       uid = value.user!.uid;
 
-      var stu = FirebaseFirestore.instance.collection('students').where('courseName', isEqualTo: 'FlutterAdvanced');
-      print(stu);
+      // var stu = FirebaseFirestore.instance.collection('students').where('courseName', isEqualTo: 'FlutterAdvanced');
+
       await FirebaseFirestore.instance.collection('instructor').get().then((value) {
-        value.docs.forEach((element) async {
-          if (element.id == email) {
-            print("object");
+
+          if (value.docs.toString() == email) {
+
             Navigator.pushReplacement(context, MaterialPageRoute(builder: (builder) => const InstructorLayOut()));
-          } else {
-            await FirebaseFirestore.instance.collection("students").doc(uid).get().then((value) async {
+          }
+
+          else {
+            FirebaseFirestore.instance.collection("students").doc(uid).get().then((value) async {
               var courseName = await value.data()!["courseName"];
               var courseDate = await value.data()!["courseDate"];
               FirebaseFirestore.instance
@@ -84,7 +87,7 @@ class LoginCubit extends Cubit<LoginState> {
                   .then((value) {
                 student = StudentModel.fromJson(value.data());
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => InstructorLayOut(),
+                  builder: (context) => const TestPage(),
                 ));
               });
               //  collection(courseName).doc(courseDate).collection("students")
@@ -92,8 +95,9 @@ class LoginCubit extends Cubit<LoginState> {
               //    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LayOut(),));
               //  });
             });
+
           }
-        });
+
       });
     }).catchError((e) {
       if (e.code == 'user-not-found') {

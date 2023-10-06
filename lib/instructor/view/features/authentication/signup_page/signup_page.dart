@@ -1,3 +1,4 @@
+import 'package:attendance_app/instructor/view/features/authentication/signup_page/instructor_signup.dart';
 import 'package:attendance_app/instructor/view/features/authentication/signup_page/widgets/animated_signup_widgets/button_animated_signup.dart';
 import 'package:attendance_app/instructor/view/features/authentication/signup_page/widgets/animated_signup_widgets/text_signup_animation.dart';
 import 'package:attendance_app/model/student_model.dart';
@@ -212,6 +213,10 @@ class SignUp extends StatelessWidget {
                         Navigator.pop(context);
                       }),
                     ),
+                    TextButton(onPressed: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => InstructorSignUpPage(),));
+                    }, child: Text("SignUp as Instructor")),
+                    SizedBox(height: 5,),
                     Row(
                       children: [
                         const Text(

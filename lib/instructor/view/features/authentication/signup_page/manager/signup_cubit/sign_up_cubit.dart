@@ -139,7 +139,7 @@ class SignUpCubit extends Cubit<SignUpState> {
               .doc(studentModel.courseDate!)
               .collection("students")
               .doc(uid)
-              .set(studentModel.toMap(id: uid))
+              .set(studentModel.dataToMap(id: uid))
               .then((value) {
             FirebaseFirestore.instance
                 .collection('courses')

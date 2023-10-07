@@ -39,6 +39,7 @@ class HomePageCubit extends Cubit<HomePageState> {
 
   void getCourseStudents({required String courseName}) async {
     sharedStudents = [];
+    Map<String, dynamic>? grades;
     emit(ClearStudentsList());
     await FirebaseFirestore.instance
         .collection('courses')
@@ -47,9 +48,13 @@ class HomePageCubit extends Cubit<HomePageState> {
         .get()
         .then((value) async {
       for (var element in value.docs) {
-        await element.reference.collection('students').get().then((value) {
+        await element.reference.collection('students').get().then((value) async {
           for (var element in value.docs) {
-            sharedStudents.add(StudentModel.fromJson(element.data()));
+            await element.reference.collection('grades').doc('grades').get().then((value) {
+              grades = value.data();
+            });
+            print(grades);
+            sharedStudents.add(StudentModel.fromJson(element.data(), grades));
           }
         });
       }

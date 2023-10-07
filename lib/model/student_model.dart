@@ -13,39 +13,44 @@ class StudentModel {
   int? project1;
   int? project2;
 
-  StudentModel({required this.name,
-    required this.email,
-    required this.phoneNo,
-    required this.profilePicture,
-    required this.attendance,
-    required this.absence,
-    required this.totalGrades,
-    required this.courseName,
-    required this.courseDate,
-    required this.assignment,
-    required this.finalProject,
-    required this.project1,
-    required this.project2
-  });
+  StudentModel(
+      {required this.name,
+      required this.email,
+      required this.phoneNo,
+      required this.profilePicture,
+      required this.attendance,
+      required this.absence,
+      required this.totalGrades,
+      required this.courseName,
+      required this.courseDate,
+      required this.assignment,
+      required this.finalProject,
+      required this.project1,
+      required this.project2});
 
-  StudentModel.fromJson(Map<String, dynamic>? json) {
-    name = json!['name'];
-    email = json['email'];
-    phoneNo = json['phoneNo'];
-    profilePicture = json['profilePicture'];
-    attendance = json['attendance'];
-    absence = json['absence'];
-    totalGrades = json['totalGrades'];
-    courseName = json['courseName'];
-    courseDate = json['courseDate'];
-    assignment = json['assignment'];
-    finalProject = json['finalProject'];
-    project1 = json['project1'];
-    project2 = json['project2'];
+  StudentModel.fromJson(Map<String, dynamic>? data, Map<String, dynamic>? grades) {
+    name = data!['name'];
+    email = data['email'];
+    phoneNo = data['phoneNo'];
+    profilePicture = data['profilePicture'];
+    attendance = data['attendance'];
+    absence = data['absence'];
+    totalGrades = data['totalGrades'];
+    courseName = data['courseName'];
+    courseDate = data['courseDate'];
+    assignment = data['assignment'];
+    finalProject = data['finalProject'];
+    project1 = data['project1'];
+    project2 = data['project2'];
+    finalProject = grades!['finalProject'];
+    assignment = grades['assignment'];
+    project1 = grades['project1'];
+    project2 = grades['project2'];
+    totalGrades = grades['totalGrades'];
+    attendance = grades['attendance'];
   }
 
-  Map<String, dynamic> toMap({required id}) =>
-      {
+  Map<String, dynamic> dataToMap({required id}) => {
         'name': name,
         'email': email,
         'phoneNo': phoneNo,
@@ -54,11 +59,9 @@ class StudentModel {
         'courseName': courseName,
         'courseDate': courseDate,
         'id': id,
-
       };
 
-  Map<String, dynamic> gradesToMap() =>
-      {
+  Map<String, dynamic> gradesToMap() => {
         'finalProject': finalProject,
         'assignment': assignment,
         'project1': project1,

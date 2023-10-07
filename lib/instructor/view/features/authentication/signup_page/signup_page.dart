@@ -1,4 +1,3 @@
-import 'package:attendance_app/instructor/view/features/authentication/signup_page/instructor_signup.dart';
 import 'package:attendance_app/instructor/view/features/authentication/signup_page/widgets/animated_signup_widgets/button_animated_signup.dart';
 import 'package:attendance_app/instructor/view/features/authentication/signup_page/widgets/animated_signup_widgets/text_signup_animation.dart';
 import 'package:attendance_app/model/student_model.dart';
@@ -121,9 +120,8 @@ class SignUp extends StatelessWidget {
                               decoration: BoxDecoration(
                                 border: Border(
                                   bottom: BorderSide(
-                                    color: cubit.coursesMenuIsChosen
-                                        ? const Color(0xFFBDBDBD)
-                                        : const Color(0xFFFF0000),
+                                    color:
+                                        cubit.coursesMenuIsChosen ? const Color(0xFFBDBDBD) : const Color(0xFFFF0000),
                                     width: 0.0,
                                   ),
                                 ),
@@ -131,9 +129,7 @@ class SignUp extends StatelessWidget {
                             ),
                             icon: Icon(
                               Icons.arrow_drop_down,
-                              color: cubit.coursesMenuIsChosen
-                                  ? Colors.grey.shade400
-                                  : const Color(0xFFFF0000),
+                              color: cubit.coursesMenuIsChosen ? Colors.grey.shade400 : const Color(0xFFFF0000),
                             ),
                             style: const TextStyle(color: Colors.white),
                             onChanged: (value) {
@@ -154,9 +150,7 @@ class SignUp extends StatelessWidget {
                               decoration: BoxDecoration(
                                 border: Border(
                                   bottom: BorderSide(
-                                    color: cubit.dateMenuIsChosen
-                                        ? const Color(0xFFBDBDBD)
-                                        : const Color(0xFFFF0000),
+                                    color: cubit.dateMenuIsChosen ? const Color(0xFFBDBDBD) : const Color(0xFFFF0000),
                                     width: 0.0,
                                   ),
                                 ),
@@ -164,9 +158,7 @@ class SignUp extends StatelessWidget {
                             ),
                             icon: Icon(
                               Icons.arrow_drop_down,
-                              color: cubit.dateMenuIsChosen
-                                  ? Colors.grey.shade400
-                                  : const Color(0xFFFF0000),
+                              color: cubit.dateMenuIsChosen ? Colors.grey.shade400 : const Color(0xFFFF0000),
                             ),
                             style: const TextStyle(color: Colors.white),
                             onChanged: (value) {
@@ -196,7 +188,7 @@ class SignUp extends StatelessWidget {
                       }, onTap: () {
                         cubit.signup(
                             studentModel: StudentModel(
-                              assignment: 0,
+                                assignment: 0,
                                 finalProject: 0,
                                 project1: 0,
                                 project2: 0,
@@ -213,15 +205,11 @@ class SignUp extends StatelessWidget {
                         Navigator.pop(context);
                       }),
                     ),
-                    TextButton(onPressed: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => InstructorSignUpPage(),));
-                    }, child: Text("SignUp as Instructor")),
-                    SizedBox(height: 5,),
                     Row(
                       children: [
                         const Text(
                           'Already have an account ?',
-                          style:  TextStyle(
+                          style: TextStyle(
                             color: Colors.white,
                           ),
                         ),
@@ -231,10 +219,7 @@ class SignUp extends StatelessWidget {
                             },
                             child: Text(
                               'LogIn',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
+                              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                                     color: Colors.teal,
                                   ),
                             ))

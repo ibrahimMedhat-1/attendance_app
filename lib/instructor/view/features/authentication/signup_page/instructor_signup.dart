@@ -1,4 +1,3 @@
-import 'package:attendance_app/instructor/view/features/authentication/signup_page/widgets/animated_signup_widgets/button_animated_signup.dart';
 import 'package:attendance_app/instructor/view/features/authentication/signup_page/widgets/animated_signup_widgets/text_signup_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -93,21 +92,25 @@ class InstructorSignUpPage extends StatelessWidget {
                               return null;
                             },
                           ),
-
                         ],
                       ),
                     ),
-                    ElevatedButton(onPressed: (){
-                      cubit.instructorSignup(
-                          password:cubit.passwordControllerInstructor.text ,
-                          instructorModel: instructorModel(email: cubit.emailControllerInstructor.text, name: cubit.nameControllerInstrictor.text) );
-                      Navigator.pop(context);
-                    },child: Text("SignUp"),),
+                    ElevatedButton(
+                      onPressed: () {
+                        cubit.instructorSignup(
+                            password: cubit.passwordControllerInstructor.text,
+                            instructorModel: InstructorModel(
+                                email: cubit.emailControllerInstructor.text,
+                                name: cubit.nameControllerInstrictor.text));
+                        Navigator.pop(context);
+                      },
+                      child: Text("SignUp"),
+                    ),
                     Row(
                       children: [
                         const Text(
                           'Already have an account ?',
-                          style:  TextStyle(
+                          style: TextStyle(
                             color: Colors.white,
                           ),
                         ),
@@ -117,12 +120,9 @@ class InstructorSignUpPage extends StatelessWidget {
                             },
                             child: Text(
                               'LogIn',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                color: Colors.teal,
-                              ),
+                              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    color: Colors.teal,
+                                  ),
                             ))
                       ],
                     )

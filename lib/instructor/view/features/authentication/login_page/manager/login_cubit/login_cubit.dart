@@ -62,42 +62,41 @@ class LoginCubit extends Cubit<LoginState> {
 
     await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password).then((value) async {
       uid = value.user!.uid;
-
-      // var stu = FirebaseFirestore.instance.collection('students').where('courseName', isEqualTo: 'FlutterAdvanced');
+      bool isInstructor = false;
 
       await FirebaseFirestore.instance.collection('instructor').get().then((value) {
-
-          if (value.docs.toString() == email) {
-
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (builder) => const InstructorLayOut()));
+        for (var element in value.docs) {
+          if (element.id == email) {
+            isInstructor = true;
+            break;
           }
-
-          else {
-            FirebaseFirestore.instance.collection("students").doc(uid).get().then((value) async {
-              var courseName = await value.data()!["courseName"];
-              var courseDate = await value.data()!["courseDate"];
-              FirebaseFirestore.instance
-                  .collection('courses')
-                  .doc(courseName)
-                  .collection('dates')
-                  .doc(courseDate)
-                  .collection("students")
-                  .doc(uid)
-                  .get()
-                  .then((value) {
-                student = StudentModel.fromJson(value.data());
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const TestPage(),
-                ));
-              });
-              //  collection(courseName).doc(courseDate).collection("students")
-              // .get().then((value) {
-              //    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LayOut(),));
-              //  });
+        }
+        if (isInstructor) {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (builder) => const InstructorLayOut()));
+        } else {
+          FirebaseFirestore.instance.collection("students").doc(uid).get().then((value) async {
+            var courseName = await value.data()!["courseName"];
+            var courseDate = await value.data()!["courseDate"];
+            FirebaseFirestore.instance
+                .collection('courses')
+                .doc(courseName)
+                .collection('dates')
+                .doc(courseDate)
+                .collection("students")
+                .doc(uid)
+                .get()
+                .then((value) {
+              student = StudentModel.fromJson(value.data());
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const TestPage(),
+              ));
             });
-
-          }
-
+            //  collection(courseName).doc(courseDate).collection("students")
+            // .get().then((value) {
+            //    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LayOut(),));
+            //  });
+          });
+        }
       });
     }).catchError((e) {
       if (e.code == 'user-not-found') {

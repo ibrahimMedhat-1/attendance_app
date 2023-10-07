@@ -142,6 +142,11 @@ class StudentDetails extends StatelessWidget {
                                                 studentName: student.name!,
                                                 quiz: student.totalGrades.toString(),
                                                 attendance: student.attendance.toString(),
+                                            project2: student.project2.toString(),
+                                            project1: student.project1.toString(),
+                                            finalProject: student.finalProject.toString(),
+                                            assignment: student.assignment.toString(),
+
                                               )));
                                 },
                                 text: 'Grades'),

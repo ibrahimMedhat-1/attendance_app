@@ -4,10 +4,15 @@ class GradesPage extends StatelessWidget {
   final String studentName;
   final String quiz;
   final String attendance;
+  final String assignment;
+  final String project1;
+  final String project2;
+  final String finalProject;
 
   const GradesPage({
     super.key,
-    required this.studentName,required this.quiz,required this.attendance
+    required this.studentName,required this.quiz,required this.attendance,
+    required this.project2,required this.project1,required this.finalProject,required this.assignment
   });
 
   @override
@@ -59,9 +64,9 @@ class GradesPage extends StatelessWidget {
                     ),
                     SizedBox(
                       height: textHeight,
-                      child: const Center(
+                      child:  Center(
                           child: Text(
-                        '20',
+                        assignment,
                       )),
                     ),
                   ]),
@@ -107,9 +112,9 @@ class GradesPage extends StatelessWidget {
                     ),
                     SizedBox(
                       height: textHeight,
-                      child: const Center(
+                      child:  Center(
                           child: Text(
-                        '20',
+                        project1,
                       )),
                     ),
                   ]),
@@ -123,9 +128,9 @@ class GradesPage extends StatelessWidget {
                     ),
                     SizedBox(
                       height: textHeight,
-                      child: const Center(
+                      child:  Center(
                           child: Text(
-                        '30',
+                        project2,
                       )),
                     ),
                   ]),
@@ -139,9 +144,9 @@ class GradesPage extends StatelessWidget {
                     ),
                     SizedBox(
                       height: textHeight,
-                      child: const Center(
+                      child:  Center(
                           child: Text(
-                        '100',
+                        finalProject,
                       )),
                     ),
                   ]),

@@ -104,7 +104,7 @@ class InstructorSignUpPage extends StatelessWidget {
                                 name: cubit.nameControllerInstrictor.text));
                         Navigator.pop(context);
                       },
-                      child: Text("SignUp"),
+                      child: const Text("SignUp"),
                     ),
                     Row(
                       children: [

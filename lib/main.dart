@@ -1,6 +1,5 @@
-import 'package:attendance_app/instructor/layout/layout.dart';
-import 'package:attendance_app/instructor/view/features/authentication/login_page/login_page.dart';
 import 'package:attendance_app/instructor/view_model/layout_cubit/layout_cubit.dart';
+import 'package:attendance_app/student/layout/student_layout.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -67,7 +66,7 @@ class MyApp extends StatelessWidget {
                 useMaterial3: true,
               ),
               themeMode: ThemeMode.dark,
-              home: const LogIn(),
+              home:  const StudentLayOut(),
             ),
           );
         },

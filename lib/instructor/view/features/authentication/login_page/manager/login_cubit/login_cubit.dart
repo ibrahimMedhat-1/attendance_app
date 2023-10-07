@@ -1,12 +1,12 @@
 import 'package:attendance_app/instructor/layout/layout.dart';
-import 'package:attendance_app/test.dart';
+import 'package:attendance_app/student/layout/student_layout.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../../model/student_model.dart';
-import '../../../../../../shared/shared.dart';
+import '../../../../../../../shared/shared.dart';
 
 part 'login_state.dart';
 
@@ -61,16 +61,11 @@ class LoginCubit extends Cubit<LoginState> {
   }) async {
     String uid;
 
-    await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email, password: password)
-        .then((value) async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password).then((value) async {
       uid = value.user!.uid;
       bool isInstructor = false;
 
-      await FirebaseFirestore.instance
-          .collection('instructor')
-          .get()
-          .then((value) {
+      await FirebaseFirestore.instance.collection('instructor').get().then((value) {
         for (var element in value.docs) {
           if (element.id == email) {
             isInstructor = true;
@@ -78,17 +73,9 @@ class LoginCubit extends Cubit<LoginState> {
           }
         }
         if (isInstructor) {
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (builder) => const InstructorLayOut()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (builder) => const InstructorLayOut()));
         } else {
-          FirebaseFirestore.instance
-              .collection("students")
-              .doc(uid)
-              .get()
-              .then((value) async {
-            Map<String, dynamic>? grades;
+          FirebaseFirestore.instance.collection("students").doc(uid).get().then((value) async {
             var courseName = await value.data()!["courseName"];
             var courseDate = await value.data()!["courseDate"];
             FirebaseFirestore.instance
@@ -99,10 +86,24 @@ class LoginCubit extends Cubit<LoginState> {
                 .collection("students")
                 .doc(uid)
                 .get()
-                .then((value) {
+                .then((value) async {
+              Map<String, dynamic>? grades;
+              await FirebaseFirestore.instance
+                  .collection('courses')
+                  .doc(courseName)
+                  .collection('dates')
+                  .doc(courseDate)
+                  .collection("students")
+                  .doc(uid)
+                  .collection('grades')
+                  .doc('grades')
+                  .get()
+                  .then((value) {
+                grades = value.data();
+              });
               student = StudentModel.fromJson(value.data(), grades);
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const TestPage(),
+                builder: (context) => const StudentLayOut(),
               ));
             });
           });
@@ -125,7 +126,6 @@ class LoginCubit extends Cubit<LoginState> {
       }
     });
   }
-
   dynamic showSnackBar({required context, required String text}) =>
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

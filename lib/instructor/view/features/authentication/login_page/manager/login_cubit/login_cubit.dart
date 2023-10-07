@@ -21,7 +21,8 @@ class LoginCubit extends Cubit<LoginState> {
   String? coursesDropDownMenuValue;
   String? dateDropDownMenuValue;
 
-  GlobalKey<FormState> loginFormKey = GlobalKey<FormState>(debugLabel: 'loginFormKey');
+  GlobalKey<FormState> loginFormKey =
+      GlobalKey<FormState>(debugLabel: 'loginFormKey');
   bool loggedIn = false;
   bool obscure = true;
   IconData suffixIcon = Icons.visibility_off;
@@ -60,11 +61,16 @@ class LoginCubit extends Cubit<LoginState> {
   }) async {
     String uid;
 
-    await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password).then((value) async {
+    await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password)
+        .then((value) async {
       uid = value.user!.uid;
       bool isInstructor = false;
 
-      await FirebaseFirestore.instance.collection('instructor').get().then((value) {
+      await FirebaseFirestore.instance
+          .collection('instructor')
+          .get()
+          .then((value) {
         for (var element in value.docs) {
           if (element.id == email) {
             isInstructor = true;
@@ -72,9 +78,17 @@ class LoginCubit extends Cubit<LoginState> {
           }
         }
         if (isInstructor) {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (builder) => const InstructorLayOut()));
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (builder) => const InstructorLayOut()));
         } else {
-          FirebaseFirestore.instance.collection("students").doc(uid).get().then((value) async {
+          FirebaseFirestore.instance
+              .collection("students")
+              .doc(uid)
+              .get()
+              .then((value) async {
+            Map<String, dynamic>? grades;
             var courseName = await value.data()!["courseName"];
             var courseDate = await value.data()!["courseDate"];
             FirebaseFirestore.instance
@@ -86,15 +100,11 @@ class LoginCubit extends Cubit<LoginState> {
                 .doc(uid)
                 .get()
                 .then((value) {
-              student = StudentModel.fromJson(value.data());
+              student = StudentModel.fromJson(value.data(), grades);
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const TestPage(),
               ));
             });
-            //  collection(courseName).doc(courseDate).collection("students")
-            // .get().then((value) {
-            //    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LayOut(),));
-            //  });
           });
         }
       });
@@ -116,7 +126,8 @@ class LoginCubit extends Cubit<LoginState> {
     });
   }
 
-  dynamic showSnackBar({required context, required String text}) => ScaffoldMessenger.of(context).showSnackBar(
+  dynamic showSnackBar({required context, required String text}) =>
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(text),
         ),

@@ -28,20 +28,20 @@ class StudentModel {
     required this.project2
   });
 
-  StudentModel.fromJson(Map<String, dynamic>? json) {
-    name = json!['name'];
-    email = json['email'];
-    phoneNo = json['phoneNo'];
-    profilePicture = json['profilePicture'];
-    attendance = json['attendance'];
-    absence = json['absence'];
-    totalGrades = json['totalGrades'];
-    courseName = json['courseName'];
-    courseDate = json['courseDate'];
-    assignment = json['assignment'];
-    finalProject = json['finalProject'];
-    project1 = json['project1'];
-    project2 = json['project2'];
+  StudentModel.fromJson(Map<String, dynamic>? data, Map<String, dynamic>? grades) {
+    name = data!['name'];
+    email = data['email'];
+    phoneNo = data['phoneNo'];
+    profilePicture = data['profilePicture'];
+    absence = data['absence'];
+    courseName = data['courseName'];
+    courseDate = data['courseDate'];
+    finalProject = grades!['finalProject'];
+    assignment = grades['assignment'];
+    project1 = grades['project1'];
+    project2 = grades['project2'];
+    totalGrades = grades['totalGrades'];
+    attendance = grades['attendance'];
   }
 
   Map<String, dynamic> toMap({required id}) =>

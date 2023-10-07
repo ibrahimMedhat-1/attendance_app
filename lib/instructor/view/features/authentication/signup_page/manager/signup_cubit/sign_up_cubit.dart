@@ -146,29 +146,60 @@ class SignUpCubit extends Cubit<SignUpState> {
                 .doc(studentModel.courseName!)
                 .collection("dates")
                 .doc(studentModel.courseDate!)
-                .collection("students")
-                .doc(uid)
-                .collection("grades")
-                .doc("grades")
-                .set(studentModel.gradesToMap())
-                .then((value) {
+                .set({
+              'studentNumberInThisDate':0,
+            }).then((value) {
               FirebaseFirestore.instance
                   .collection('courses')
                   .doc(studentModel.courseName!)
-                  .collection('dates')
+                  .collection("dates")
                   .doc(studentModel.courseDate!)
                   .collection("students")
-                  .get()
+                  .doc(uid)
+                  .collection("grades")
+                  .doc("grades")
+                  .set(studentModel.gradesToMap())
                   .then((value) {
                 FirebaseFirestore.instance
                     .collection('courses')
                     .doc(studentModel.courseName!)
-                    .update({"studentsNumber": value.docs.length});
+                    .collection('dates')
+                    .doc(studentModel.courseDate!)
+                    .collection("students")
+                    .get().then((value) {
+                  FirebaseFirestore.instance
+                      .collection('courses')
+                      .doc(studentModel.courseName!)
+                      .collection("dates")
+                      .doc(studentModel.courseDate!)
+                      .update({
+                    'studentNumberInThisDate':value.docs.length,
+                  });
+                });
+
+              }).then((value) {
+                FirebaseFirestore.instance
+                    .collection('courses')
+                    .doc(studentModel.courseName!)
+                    .collection('dates')
+                    .doc(studentModel.courseDate!)
+                    .collection("students")
+                    .get()
+                    .then((value) {
+                  FirebaseFirestore.instance
+                      .collection('courses')
+                      .doc(studentModel.courseName!)
+                      .update({"studentsNumber": value.docs.length});
+                });
               });
             });
+
           });
         });
       });
     });
   }
 }
+
+
+

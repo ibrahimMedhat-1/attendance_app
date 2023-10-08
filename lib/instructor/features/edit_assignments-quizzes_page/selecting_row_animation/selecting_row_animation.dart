@@ -1,6 +1,7 @@
-import 'package:attendance_app/instructor/view_model/edit_assignments-quizzes_cubit/edit_page_cubit/edit_page_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../manger/edit_page_cubit/edit_page_cubit.dart';
 
 class SelectAnimation extends StatefulWidget {
   const SelectAnimation({super.key});

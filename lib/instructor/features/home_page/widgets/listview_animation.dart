@@ -1,9 +1,9 @@
-import 'package:attendance_app/instructor/view/home_page/manger/homepage_cubit/home_page_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../model/student_model.dart';
-import '../../features/in_student_features/student_details_page/student_details_page.dart';
+import '../../in_student_features/student_details_page/student_details_page.dart';
+import '../manger/homepage_cubit/home_page_cubit.dart';
 
 class AnimationList extends StatefulWidget {
   final List<StudentModel> studentsModel;

@@ -1,7 +1,8 @@
-import 'package:attendance_app/instructor/view_model/qr_code_cubit/qr_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+
+import 'manger/qr_code_cubit/qr_cubit.dart';
 
 class QRCodeScanner extends StatelessWidget {
   const QRCodeScanner({super.key});

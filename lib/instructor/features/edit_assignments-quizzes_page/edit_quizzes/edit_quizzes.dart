@@ -1,7 +1,8 @@
-import 'package:attendance_app/instructor/view/features/edit_assignments-quizzes_page/edit_quizzes/widgets/quiz_card.dart';
-import 'package:attendance_app/instructor/view_model/edit_assignments-quizzes_cubit/edit_quizzes_cubit/edit_quizzes_cubit.dart';
+import 'package:attendance_app/instructor/features/edit_assignments-quizzes_page/edit_quizzes/widgets/quiz_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'manger/edit_quizzes_cubit/edit_quizzes_cubit.dart';
 
 class EditQuizzes extends StatelessWidget {
   const EditQuizzes({super.key});

@@ -1,7 +1,8 @@
-import 'package:attendance_app/instructor/view_model/layout_cubit/layout_cubit.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'manger/layout_cubit/layout_cubit.dart';
 
 class InstructorLayOut extends StatelessWidget {
   const InstructorLayOut({super.key});

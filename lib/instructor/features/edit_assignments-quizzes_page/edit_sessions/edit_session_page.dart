@@ -1,7 +1,9 @@
-import 'package:attendance_app/instructor/view/features/edit_assignments-quizzes_page/edit_sessions/manager/edit_session_cubit.dart';
-import 'package:attendance_app/instructor/view/features/edit_assignments-quizzes_page/edit_sessions/widgets/session_widget.dart';
+
+import 'package:attendance_app/instructor/features/edit_assignments-quizzes_page/edit_sessions/widgets/session_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'manager/edit_session_cubit.dart';
 
 class EditSessionPage extends StatelessWidget {
   const EditSessionPage({super.key});

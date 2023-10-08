@@ -1,4 +1,4 @@
-import 'package:attendance_app/instructor/view_model/layout_cubit/layout_cubit.dart';
+import 'package:attendance_app/authentication/login_page/login_page.dart';
 import 'package:attendance_app/student/layout/student_layout.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'authentication/login_page/manager/login_cubit/login_cubit.dart';
 import 'authentication/signup_page/manager/signup_cubit/sign_up_cubit.dart';
 import 'firebase_options.dart';
+import 'instructor/layout/manger/layout_cubit/layout_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -66,7 +67,7 @@ class MyApp extends StatelessWidget {
                 useMaterial3: true,
               ),
               themeMode: ThemeMode.dark,
-              home: const StudentLayOut(),
+              home: const LogIn(),
             ),
           );
         },

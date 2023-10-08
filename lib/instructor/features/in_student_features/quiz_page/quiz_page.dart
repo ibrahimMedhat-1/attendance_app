@@ -1,4 +1,4 @@
-import 'package:attendance_app/instructor/view/features/in_student_features/quiz_page/widgets/quiz_card.dart';
+import 'package:attendance_app/instructor/features/in_student_features/quiz_page/widgets/quiz_card.dart';
 import 'package:flutter/material.dart';
 
 class QuizPage extends StatelessWidget {

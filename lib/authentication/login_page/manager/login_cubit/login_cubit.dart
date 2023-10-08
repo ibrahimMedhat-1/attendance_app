@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../../model/student_model.dart';
-import '../../../../../../../shared/shared.dart';
+import '../../../../student/shared/shared.dart';
 
 part 'login_state.dart';
 
@@ -21,8 +21,7 @@ class LoginCubit extends Cubit<LoginState> {
   String? coursesDropDownMenuValue;
   String? dateDropDownMenuValue;
 
-  GlobalKey<FormState> loginFormKey =
-      GlobalKey<FormState>(debugLabel: 'loginFormKey');
+  GlobalKey<FormState> loginFormKey = GlobalKey<FormState>(debugLabel: 'loginFormKey');
   bool loggedIn = false;
   bool obscure = true;
   IconData suffixIcon = Icons.visibility_off;
@@ -101,7 +100,7 @@ class LoginCubit extends Cubit<LoginState> {
                   .then((value) {
                 grades = value.data();
               });
-              student = StudentModel.fromJson(value.data(), grades);
+              sharedStudentData = StudentModel.fromJson(value.data(), grades);
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const StudentLayOut(),
               ));
@@ -126,8 +125,8 @@ class LoginCubit extends Cubit<LoginState> {
       }
     });
   }
-  dynamic showSnackBar({required context, required String text}) =>
-      ScaffoldMessenger.of(context).showSnackBar(
+
+  dynamic showSnackBar({required context, required String text}) => ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(text),
         ),

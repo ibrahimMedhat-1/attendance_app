@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'authentication/login_page/manager/login_cubit/login_cubit.dart';
+import 'authentication/signup_page/manager/signup_cubit/sign_up_cubit.dart';
 import 'firebase_options.dart';
-import 'instructor/view/features/authentication/login_page/manager/login_cubit/login_cubit.dart';
-import 'instructor/view/features/authentication/signup_page/manager/signup_cubit/sign_up_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
                 useMaterial3: true,
               ),
               themeMode: ThemeMode.dark,
-              home:  const StudentLayOut(),
+              home: const StudentLayOut(),
             ),
           );
         },

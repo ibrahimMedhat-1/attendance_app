@@ -147,7 +147,7 @@ class SignUpCubit extends Cubit<SignUpState> {
                 .collection("dates")
                 .doc(studentModel.courseDate!)
                 .set({
-              'studentNumberInThisDate':0,
+              'studentNumberInThisDate': 0,
             }).then((value) {
               FirebaseFirestore.instance
                   .collection('courses')
@@ -166,40 +166,40 @@ class SignUpCubit extends Cubit<SignUpState> {
                     .collection('dates')
                     .doc(studentModel.courseDate!)
                     .collection("students")
-                    .get().then((value) {
+                    .get()
+                    .then((value) {
                   FirebaseFirestore.instance
                       .collection('courses')
                       .doc(studentModel.courseName!)
                       .collection("dates")
                       .doc(studentModel.courseDate!)
                       .update({
-                    'studentNumberInThisDate':value.docs.length,
+                    'studentNumberInThisDate': value.docs.length,
                   });
                 });
-
               }).then((value) {
+                int studentsCount = 0;
                 FirebaseFirestore.instance
                     .collection('courses')
                     .doc(studentModel.courseName!)
                     .collection('dates')
-                    .doc(studentModel.courseDate!)
-                    .collection("students")
                     .get()
                     .then((value) {
+                  value.docs.forEach((element) async {
+                    await element.reference.collection('students').get().then((value) {
+                      studentsCount += value.docs.length;
+                    });
+                  });
                   FirebaseFirestore.instance
                       .collection('courses')
                       .doc(studentModel.courseName!)
-                      .update({"studentsNumber": value.docs.length});
+                      .update({"studentsNumber": studentsCount});
                 });
               });
             });
-
           });
         });
       });
     });
   }
 }
-
-
-

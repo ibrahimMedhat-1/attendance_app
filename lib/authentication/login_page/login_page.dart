@@ -1,5 +1,5 @@
-import 'package:attendance_app/instructor/view/features/authentication/login_page/widgets/animated_login_widgets/button_animated_login.dart';
-import 'package:attendance_app/instructor/view/features/authentication/login_page/widgets/animated_login_widgets/logo_opacity_animated_login.dart';
+import 'package:attendance_app/authentication/login_page/widgets/animated_login_widgets/button_animated_login.dart';
+import 'package:attendance_app/authentication/login_page/widgets/animated_login_widgets/logo_opacity_animated_login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -117,17 +117,11 @@ class LogIn extends StatelessWidget {
                             ),
                             TextButton(
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (builder) => const SignUp()));
+                                Navigator.push(context, MaterialPageRoute(builder: (builder) => const SignUp()));
                               },
                               child: Text(
                                 'SignUp',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
+                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                                       color: Colors.teal,
                                     ),
                               ),

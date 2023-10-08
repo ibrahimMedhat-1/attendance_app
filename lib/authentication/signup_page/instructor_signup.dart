@@ -1,4 +1,4 @@
-import 'package:attendance_app/instructor/view/features/authentication/signup_page/widgets/animated_signup_widgets/text_signup_animation.dart';
+import 'package:attendance_app/authentication/signup_page/widgets/animated_signup_widgets/text_signup_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

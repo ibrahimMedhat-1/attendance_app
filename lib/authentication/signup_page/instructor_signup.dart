@@ -33,7 +33,7 @@ class InstructorSignUpPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           TextFormField(
-                            controller: cubit.nameControllerInstrictor,
+                            controller: cubit.nameControllerInstructor,
                             keyboardType: TextInputType.name,
                             style: const TextStyle(
                               color: Colors.white,
@@ -101,7 +101,7 @@ class InstructorSignUpPage extends StatelessWidget {
                             password: cubit.passwordControllerInstructor.text,
                             instructorModel: InstructorModel(
                                 email: cubit.emailControllerInstructor.text,
-                                name: cubit.nameControllerInstrictor.text));
+                                name: cubit.nameControllerInstructor.text));
                         Navigator.pop(context);
                       },
                       child: const Text("SignUp"),

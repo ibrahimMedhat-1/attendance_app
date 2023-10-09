@@ -13,7 +13,7 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   static SignUpCubit get(context) => BlocProvider.of(context);
   TextEditingController nameController = TextEditingController();
-  TextEditingController nameControllerInstrictor = TextEditingController();
+  TextEditingController nameControllerInstructor = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController emailControllerInstructor = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -177,19 +177,19 @@ class SignUpCubit extends Cubit<SignUpState> {
                     'studentNumberInThisDate': value.docs.length,
                   });
                 });
-              }).then((value) {
+              }).then((value) async {
                 int studentsCount = 0;
-                FirebaseFirestore.instance
+                await FirebaseFirestore.instance
                     .collection('courses')
                     .doc(studentModel.courseName!)
                     .collection('dates')
                     .get()
-                    .then((value) {
-                  value.docs.forEach((element) async {
+                    .then((value) async {
+                  for (var element in value.docs) {
                     await element.reference.collection('students').get().then((value) {
                       studentsCount += value.docs.length;
                     });
-                  });
+                  }
                   FirebaseFirestore.instance
                       .collection('courses')
                       .doc(studentModel.courseName!)

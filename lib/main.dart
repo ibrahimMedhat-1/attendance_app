@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'authentication/login_page/manager/login_cubit/login_cubit.dart';
 import 'authentication/signup_page/manager/signup_cubit/sign_up_cubit.dart';
 import 'firebase_options.dart';
+import 'instructor/features/edit_assignments-quizzes_page/upload_page/upload_page.dart';
 import 'instructor/layout/manger/layout_cubit/layout_cubit.dart';
 
 void main() async {
@@ -72,7 +73,7 @@ class MyApp extends StatelessWidget {
                 useMaterial3: true,
               ),
               themeMode: ThemeMode.dark,
-              home: const StudentLayOut(),
+              home: const UploadPage(),
             ),
           );
         },

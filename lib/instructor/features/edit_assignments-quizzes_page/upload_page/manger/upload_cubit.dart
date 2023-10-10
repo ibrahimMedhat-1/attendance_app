@@ -12,14 +12,13 @@ class UploadCubit extends Cubit<UploadState> {
   UploadCubit() : super(UploadInitial());
 
   static UploadCubit get(context) => BlocProvider.of(context);
+
   TextEditingController productDescribtionController = TextEditingController();
   TextEditingController productNameController = TextEditingController();
 
   void showImagePicker(
-    BuildContext context, {
-    required String courseName,
-    required int assignmentIndex,
-  }) {
+    BuildContext context,
+  ) {
     showModalBottomSheet(
         context: context,
         builder: (builder) {
@@ -50,22 +49,7 @@ class UploadCubit extends Cubit<UploadState> {
                         ],
                       ),
                       onTap: () async {
-                        await imgFromGallery().then((value) {
-                          FirebaseStorage.instance
-                              .ref()
-                              .child('assignments/assignment$assignmentIndex')
-                              .putFile(File(value))
-                              .then((value) {
-                            value.ref.getDownloadURL().then((value) {
-                              FirebaseFirestore.instance
-                                  .collection('courses')
-                                  .doc(courseName)
-                                  .collection('assignments')
-                                  .doc('assignment$assignmentIndex')
-                                  .set({'pic': value});
-                            });
-                          });
-                        });
+                        await imgFromGallery();
                       },
                     )),
                   ],
@@ -73,13 +57,36 @@ class UploadCubit extends Cubit<UploadState> {
           );
         });
   }
-
+  String image = '';
   Future<String> imgFromGallery() async {
     final picker = ImagePicker();
     late final String path;
     await picker.pickImage(source: ImageSource.gallery).then((value) {
+      image = value.toString();
       path = value!.path;
     });
     return path;
+  }
+
+  void uploadImage({
+    required String courseName,
+    required int assignmentIndex,
+  }) async {
+    await imgFromGallery().then((value) {
+      FirebaseStorage.instance
+          .ref()
+          .child('assignments/assignment$assignmentIndex')
+          .putFile(File(value))
+          .then((value) {
+        value.ref.getDownloadURL().then((value) {
+          FirebaseFirestore.instance
+              .collection('courses')
+              .doc(courseName)
+              .collection('assignments')
+              .doc('assignment$assignmentIndex')
+              .set({'pic': value});
+        });
+      });
+    });
   }
 }

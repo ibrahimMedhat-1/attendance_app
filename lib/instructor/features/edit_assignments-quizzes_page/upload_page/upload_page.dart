@@ -3,20 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UploadPage extends StatelessWidget {
-  const UploadPage({Key? key}) : super(key: key);
+  final String courseNameUploadTo;
+  final int assignmentIndex;
+
+  const UploadPage({
+    Key? key,
+    required this.courseNameUploadTo,
+    required this.assignmentIndex,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => UploadCubit(),
       child: BlocConsumer<UploadCubit, UploadState>(
-        listener: (context, state) {
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           UploadCubit cubit = UploadCubit.get(context);
           return Scaffold(
             appBar: AppBar(
-              title: const Text("Upload Assignment",style: TextStyle(color: Colors.white),),
+              title: const Text(
+                "Upload Assignment",
+                style: TextStyle(color: Colors.white),
+              ),
               centerTitle: true,
             ),
             body: Padding(
@@ -26,7 +35,7 @@ class UploadPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: InkWell(
-                      onTap: (){
+                      onTap: () {
                         cubit.showImagePicker(context);
                       },
                       child: Container(
@@ -43,27 +52,25 @@ class UploadPage extends StatelessWidget {
                   Flexible(
                     flex: 2,
                     child: TextFormField(
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                       controller: cubit.productNameController,
                       decoration: const InputDecoration(
-
-
                           hintText: "Product Name",
-                          hintStyle: TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.normal),
+                          hintStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.normal),
                           border: OutlineInputBorder(borderSide: BorderSide())),
                     ),
                   ),
-                  const SizedBox(height:10 ,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Flexible(
                     flex: 3,
                     child: TextFormField(
                       maxLines: 6,
                       controller: cubit.productDescribtionController,
                       decoration: const InputDecoration(
-                          hintText: "Describtion..",
-                          hintStyle: TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.normal),
+                          hintText: "Description..",
+                          hintStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.normal),
                           border: OutlineInputBorder(borderSide: BorderSide())),
                     ),
                   ),
@@ -75,24 +82,29 @@ class UploadPage extends StatelessWidget {
                       children: [
                         ElevatedButton(
                           style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  Theme.of(context).colorScheme.secondaryContainer)),
-                          onPressed: () {},
+                              backgroundColor:
+                                  MaterialStateProperty.all(Theme.of(context).colorScheme.secondaryContainer)),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                           child: const Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 12),
-                            child:
-                            Text('Cancel', style: TextStyle(color: Colors.black)),
+                            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
+                            child: Text('Cancel', style: TextStyle(color: Colors.black)),
                           ),
                         ),
                         ElevatedButton(
                           style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                  Theme.of(context).colorScheme.secondaryContainer)),
-                          onPressed: () {},
+                              backgroundColor:
+                                  MaterialStateProperty.all(Theme.of(context).colorScheme.secondaryContainer)),
+                          onPressed: () {
+                            cubit.showImagePicker(
+                              context,
+                              courseName: courseNameUploadTo,
+                              assignmentIndex: assignmentIndex,
+                            );
+                          },
                           child: const Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 20),
+                            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),
                             child: Text(
                               'Add',
                               style: TextStyle(color: Colors.black),

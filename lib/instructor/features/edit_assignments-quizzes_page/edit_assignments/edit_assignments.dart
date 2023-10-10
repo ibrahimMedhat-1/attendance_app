@@ -1,4 +1,4 @@
-
+import 'package:attendance_app/instructor/features/edit_assignments-quizzes_page/upload_page/upload_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -48,6 +48,16 @@ class EditAssignments extends StatelessWidget {
                       20,
                       (index) => EditAssignmentCard(
                             index: index + 1,
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (builder) => UploadPage(
+                                      courseNameUploadTo: cubit.assignmentCoursesDropDownMenuValue!,
+                                      assignmentIndex: index + 1,
+                                    ),
+                                  ));
+                            },
                           )),
                 ),
               ),

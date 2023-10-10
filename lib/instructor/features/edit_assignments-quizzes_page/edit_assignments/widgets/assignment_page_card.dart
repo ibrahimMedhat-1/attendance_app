@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 class EditAssignmentCard extends StatefulWidget {
   final int index;
-
+  final Function() onTap;
   const EditAssignmentCard({
     super.key,
     required this.index,
+    required this.onTap,
   });
 
   @override
@@ -16,7 +17,9 @@ class _EditAssignmentCardState extends State<EditAssignmentCard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        widget.onTap();
+      },
       child: Container(
         height: MediaQuery.of(context).size.width * 0.3,
         width: MediaQuery.of(context).size.width * 0.4,

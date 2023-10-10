@@ -1,4 +1,4 @@
-import 'package:attendance_app/student/layout/student_layout.dart';
+import 'package:attendance_app/instructor/layout/layout.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -9,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'authentication/login_page/manager/login_cubit/login_cubit.dart';
 import 'authentication/signup_page/manager/signup_cubit/sign_up_cubit.dart';
 import 'firebase_options.dart';
-import 'instructor/features/edit_assignments-quizzes_page/upload_page/upload_page.dart';
 import 'instructor/layout/manger/layout_cubit/layout_cubit.dart';
 
 void main() async {
@@ -73,7 +72,7 @@ class MyApp extends StatelessWidget {
                 useMaterial3: true,
               ),
               themeMode: ThemeMode.dark,
-              home: const UploadPage(),
+              home: const InstructorLayOut(),
             ),
           );
         },

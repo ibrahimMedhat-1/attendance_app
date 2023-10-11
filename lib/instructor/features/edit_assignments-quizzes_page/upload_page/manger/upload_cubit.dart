@@ -77,37 +77,28 @@ class UploadCubit extends Cubit<UploadState> {
         .doc(courseName)
         .collection('assignments')
         .doc('assignment$assignmentIndex')
-        .update({
-      'description': assignmentController.text
-
-    });
+        .update({'description': assignmentController.text});
   }
+
   void addAssignment({
     required String courseName,
     required int assignmentIndex,
-  })async{
-    await uploadAssignmentImage(
-      courseName: courseName,
-      assignmentIndex: assignmentIndex
-    );
-    uploadAssignmentDescription(
-      assignmentIndex: assignmentIndex,
-      courseName: courseName
-
-    );
+  }) async {
+    await uploadAssignmentImage(courseName: courseName, assignmentIndex: assignmentIndex);
+    uploadAssignmentDescription(assignmentIndex: assignmentIndex, courseName: courseName);
   }
 
   Future<void> uploadAssignmentImage({
     required String courseName,
     required int assignmentIndex,
   }) async {
-   await  FirebaseStorage.instance
+    await FirebaseStorage.instance
         .ref()
         .child('assignments/assignment$assignmentIndex')
         .putFile(File(path!))
         .then((value) {
-      value.ref.getDownloadURL().then((value) async{
-       await FirebaseFirestore.instance
+      value.ref.getDownloadURL().then((value) async {
+        await FirebaseFirestore.instance
             .collection('courses')
             .doc(courseName)
             .collection('assignments')

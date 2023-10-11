@@ -47,13 +47,13 @@ class UploadPage extends StatelessWidget {
                           color: Colors.grey.shade200,
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Center(child: cubit.path == null ?
-                        Image.asset('assets/icons8-add-photo-80.png'): Image.file(File(cubit.path!))
-                        ),
+                        child: Center(
+                            child: cubit.path == null
+                                ? Image.asset('assets/icons8-add-photo-80.png')
+                                : Image.file(File(cubit.path!))),
                       ),
                     ),
                   ),
-
                   const SizedBox(
                     height: 10,
                   ),
@@ -91,7 +91,7 @@ class UploadPage extends StatelessWidget {
                               backgroundColor:
                                   MaterialStateProperty.all(Theme.of(context).colorScheme.secondaryContainer)),
                           onPressed: () {
-                           cubit.addAssignment(courseName: courseNameUploadTo, assignmentIndex: assignmentIndex);
+                            cubit.addAssignment(courseName: courseNameUploadTo, assignmentIndex: assignmentIndex);
                           },
                           child: const Padding(
                             padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),

@@ -13,8 +13,7 @@ class UploadCubit extends Cubit<UploadState> {
 
   static UploadCubit get(context) => BlocProvider.of(context);
 
-  TextEditingController productDescribtionController = TextEditingController();
-  TextEditingController productNameController = TextEditingController();
+  TextEditingController assignmentController = TextEditingController();
 
   void showImagePicker(
     BuildContext context,
@@ -49,7 +48,7 @@ class UploadCubit extends Cubit<UploadState> {
                         ],
                       ),
                       onTap: () async {
-                        await imgFromGallery();
+                        await pickImageFromGallery();
                       },
                     )),
                   ],
@@ -57,35 +56,63 @@ class UploadCubit extends Cubit<UploadState> {
           );
         });
   }
-  String image = '';
-  Future<String> imgFromGallery() async {
+
+  late final String path;
+
+  Future<void> pickImageFromGallery() async {
     final picker = ImagePicker();
-    late final String path;
+
     await picker.pickImage(source: ImageSource.gallery).then((value) {
-      image = value.toString();
       path = value!.path;
+      emit(ChangeImage());
     });
-    return path;
   }
 
-  void uploadImage({
+  void uploadAssignmentDescription({
+    required String courseName,
+    required int assignmentIndex,
+  }) {
+    FirebaseFirestore.instance
+        .collection("courses")
+        .doc(courseName)
+        .collection('assignments')
+        .doc('assignment$assignmentIndex')
+        .update({
+      'description': assignmentController.text
+
+    });
+  }
+  void addAssignment({
+    required String courseName,
+    required int assignmentIndex,
+  })async{
+    await uploadAssignmentImage(
+      courseName: courseName,
+      assignmentIndex: assignmentIndex
+    );
+    uploadAssignmentDescription(
+      assignmentIndex: assignmentIndex,
+      courseName: courseName
+
+    );
+  }
+
+  Future<void> uploadAssignmentImage({
     required String courseName,
     required int assignmentIndex,
   }) async {
-    await imgFromGallery().then((value) {
-      FirebaseStorage.instance
-          .ref()
-          .child('assignments/assignment$assignmentIndex')
-          .putFile(File(value))
-          .then((value) {
-        value.ref.getDownloadURL().then((value) {
-          FirebaseFirestore.instance
-              .collection('courses')
-              .doc(courseName)
-              .collection('assignments')
-              .doc('assignment$assignmentIndex')
-              .set({'pic': value});
-        });
+   await  FirebaseStorage.instance
+        .ref()
+        .child('assignments/assignment$assignmentIndex')
+        .putFile(File(path))
+        .then((value) {
+      value.ref.getDownloadURL().then((value) async{
+       await FirebaseFirestore.instance
+            .collection('courses')
+            .doc(courseName)
+            .collection('assignments')
+            .doc('assignment$assignmentIndex')
+            .set({'pic': value});
       });
     });
   }

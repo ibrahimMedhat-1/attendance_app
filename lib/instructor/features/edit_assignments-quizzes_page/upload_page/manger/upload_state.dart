@@ -4,3 +4,4 @@ part of 'upload_cubit.dart';
 abstract class UploadState {}
 
 class UploadInitial extends UploadState {}
+class ChangeImage extends UploadState {}

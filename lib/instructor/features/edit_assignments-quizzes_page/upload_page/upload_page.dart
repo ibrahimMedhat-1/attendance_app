@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:attendance_app/instructor/features/edit_assignments-quizzes_page/upload_page/manger/upload_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,21 +47,13 @@ class UploadPage extends StatelessWidget {
                           color: Colors.grey.shade200,
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Center(child: Image.asset('assets/icons8-add-photo-80.png')),
+                        child: Center(child: cubit.path.isEmpty ?
+                        Image.asset('assets/icons8-add-photo-80.png'): Image.file(File(cubit.path))
+                        ),
                       ),
                     ),
                   ),
-                  Flexible(
-                    flex: 2,
-                    child: TextFormField(
-                      style: const TextStyle(color: Colors.white),
-                      controller: cubit.productNameController,
-                      decoration: const InputDecoration(
-                          hintText: "Product Name",
-                          hintStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.normal),
-                          border: OutlineInputBorder(borderSide: BorderSide())),
-                    ),
-                  ),
+
                   const SizedBox(
                     height: 10,
                   ),
@@ -67,7 +61,7 @@ class UploadPage extends StatelessWidget {
                     flex: 3,
                     child: TextFormField(
                       maxLines: 6,
-                      controller: cubit.productDescribtionController,
+                      controller: cubit.assignmentController,
                       decoration: const InputDecoration(
                           hintText: "Description..",
                           hintStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.normal),
@@ -97,11 +91,7 @@ class UploadPage extends StatelessWidget {
                               backgroundColor:
                                   MaterialStateProperty.all(Theme.of(context).colorScheme.secondaryContainer)),
                           onPressed: () {
-                            cubit.showImagePicker(
-                              context,
-                              courseName: courseNameUploadTo,
-                              assignmentIndex: assignmentIndex,
-                            );
+                           cubit.addAssignment(courseName: courseNameUploadTo, assignmentIndex: assignmentIndex);
                           },
                           child: const Padding(
                             padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 20),

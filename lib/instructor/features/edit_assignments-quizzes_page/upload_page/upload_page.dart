@@ -47,8 +47,8 @@ class UploadPage extends StatelessWidget {
                           color: Colors.grey.shade200,
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Center(child: cubit.path.isEmpty ?
-                        Image.asset('assets/icons8-add-photo-80.png'): Image.file(File(cubit.path))
+                        child: Center(child: cubit.path == null ?
+                        Image.asset('assets/icons8-add-photo-80.png'): Image.file(File(cubit.path!))
                         ),
                       ),
                     ),

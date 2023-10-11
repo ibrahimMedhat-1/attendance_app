@@ -57,7 +57,7 @@ class UploadCubit extends Cubit<UploadState> {
         });
   }
 
-  late final String path;
+  String? path;
 
   Future<void> pickImageFromGallery() async {
     final picker = ImagePicker();
@@ -104,7 +104,7 @@ class UploadCubit extends Cubit<UploadState> {
    await  FirebaseStorage.instance
         .ref()
         .child('assignments/assignment$assignmentIndex')
-        .putFile(File(path))
+        .putFile(File(path!))
         .then((value) {
       value.ref.getDownloadURL().then((value) async{
        await FirebaseFirestore.instance
